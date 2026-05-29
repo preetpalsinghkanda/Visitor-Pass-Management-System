@@ -8,7 +8,7 @@ const Hero = () => {
   
 
   return (
-    <div className=" h-screen font-Quicksand">
+    <div className="">
       <div className="[font-family:'Mozilla_Headline',sans-serif] max-w-[90rem] w-full mx-auto  ">
         <h1 class=" text-[300px] font-extrabold">VISTRA</h1>
         <p className="relative bottom-20 text-3xl">
@@ -20,7 +20,7 @@ const Hero = () => {
         </button>
       </div>
 
-      <div className="max-w-[90rem]  w-full mx-auto  flex justify-between my-50 py-4">
+      <div className="max-w-[90rem]  w-full mx-auto  flex justify-between mt-50 mb-40 py-4">
         <div className="  [font-family:'Mozilla_Headline',sans-serif]   max-w-[55rem] ">
           <div className=" flex flex-col h-full items-center">
             <div className="max-w-4xl">
@@ -53,14 +53,6 @@ const Hero = () => {
         <div className="h-180 ">
           <img src={cards} className="h-full w-full object-cover " alt="" />
         </div>
-      </div>
-
-      <div className="border h-screen hidden">
-        <img
-          src={visitorSelfie}
-          className="h-full w-full object-cover"
-          alt=""
-        />
       </div>
     </div>
   );
