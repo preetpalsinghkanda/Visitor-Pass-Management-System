@@ -19,7 +19,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className=" [font-family:'Mozilla_Headline',sans-serif]  flex flex-col gap-20  max-w-[90rem] mx-auto">
+    <div className=" my-20  flex flex-col gap-20  max-w-[90rem] mx-auto">
       <div className="text-center flex justify-center flex-col items-center">
         <h1 className="text-7xl font-bold">VISTRA</h1>
         
@@ -36,7 +36,7 @@ const Footer = () => {
         <section className="flex gap-3 cursor-pointer">
           {iconName.map((item) => {
             return (
-              <span className="w-fit p-1 py-1.5 bg-[black] border rounded-full flex items-center justify-between">
+              <span className="w-fit p-1 py-1.5 bg-[black]  rounded-full flex items-center justify-between">
                 <FontAwesomeIcon icon={item} className="text-3xl text-white" />
               </span>
             );

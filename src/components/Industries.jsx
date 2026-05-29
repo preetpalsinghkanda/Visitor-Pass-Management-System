@@ -7,7 +7,7 @@ import factoryImg from "../assets/industries/factory.webp";
 
 const Industries = () => {
   return (
-    <div className="max-w-[90rem] [font-family:'Mozilla_Headline',sans-serif]   mx-auto">
+    <div className="max-w-[90rem]    mx-auto">
       <div className="flex flex-col gap-20">
         <div className="gap-3 flex flex-col">
           <h3 className="text-5xl font-black">
@@ -22,7 +22,7 @@ const Industries = () => {
         </div>
 
         <div className="grid grid-cols-5 grid-rows-1 gap-4 ">
-          <div className="w-fit   flex flex-col  bg-black border-[#00000057] border-2 py-4 px-3 gap-4">
+          <div className="w-fit   flex flex-col  bg-black  py-4 px-3 gap-4">
             <div className="  px-4 flex justify-center">
               <img
                 className="h-full brightness-0 invert object-fit"
@@ -38,7 +38,7 @@ const Industries = () => {
             </div>
           </div>
 
-          <div className="w-fit  flex flex-col  bg-black border-[#00000057] border-2 py-4 px-3 gap-4">
+          <div className="w-fit  flex flex-col  bg-black   py-4 px-3 gap-4">
             <div className="  px-4 flex justify-center">
               <img
                 className="h-full brightness-0 invert object-fit"
@@ -54,7 +54,7 @@ const Industries = () => {
             </div>
           </div>
 
-          <div className="w-fit  justify-around  flex flex-col  bg-black border-[#00000057] border-2 py-4 px-3 gap-4">
+          <div className="w-fit  justify-around  flex flex-col  bg-black py-4 px-3 gap-4">
             <div className="  px-4 flex justify-center">
               <img
                 className="h-full brightness-0 invert object-fit"
@@ -71,7 +71,7 @@ const Industries = () => {
             </div>
           </div>
 
-          <div className="w-fit  justify-around flex flex-col  bg-black border-[#00000057] border-2 py-4 px-3 gap-4">
+          <div className="w-fit  justify-around flex flex-col  bg-black  py-4 px-3 gap-4">
             <div className="  px-4 flex justify-center">
               <img
                 className="h-full brightness-0 invert  object-fit"
@@ -90,7 +90,7 @@ const Industries = () => {
             </div>
           </div>
 
-          <div className="w-fit justify-between flex flex-col  bg-black border-[#00000057] border-2 py-4 px-3 gap-4">
+          <div className="w-fit justify-between flex flex-col  bg-black  py-4 px-3 gap-4">
             <div className="  px-4 flex mx-auto">
               <img
                 className="h-full brightness-0 invert  object-fit"

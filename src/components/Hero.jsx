@@ -9,7 +9,7 @@ const Hero = () => {
 
   return (
     <div className="">
-      <div className="[font-family:'Mozilla_Headline',sans-serif] max-w-[90rem] w-full mx-auto  ">
+      <div className=" max-w-[90rem] w-full mx-auto  ">
         <h1 class=" text-[300px] font-extrabold">VISTRA</h1>
         <p className="relative bottom-20 text-3xl">
           The future of enterprise access. Intelligence woven into every entry.
@@ -21,7 +21,7 @@ const Hero = () => {
       </div>
 
       <div className="max-w-[90rem]  w-full mx-auto  flex justify-between mt-50 mb-40 py-4">
-        <div className="  [font-family:'Mozilla_Headline',sans-serif]   max-w-[55rem] ">
+        <div className="   max-w-[55rem] ">
           <div className=" flex flex-col h-full items-center">
             <div className="max-w-4xl">
               <h2 className="text-6xl font-bold">
