@@ -7,6 +7,7 @@ import Mission from './components/Mission'
 import Success from './components/Success'
 import Selfie from './components/Selfie'
 import Experience from './components/Experience/Experience'
+import AdminLogin from './components/Admin/AdminLogin'
 
 const App = () => {
   return (
@@ -19,7 +20,9 @@ const App = () => {
        <Selfie/>
       <Footer/>    */}
 
-      <Experience/>
+      {/* <Experience/> */}
+
+      <AdminLogin/>
 
       
 
