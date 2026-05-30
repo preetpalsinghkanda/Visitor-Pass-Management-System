@@ -8,10 +8,11 @@ import Success from './components/Success'
 import Selfie from './components/Selfie'
 import Experience from './components/Experience/Experience'
 import AdminLogin from './components/Admin/AdminLogin'
+import EmployeeLogin from './components/Employee/EmployeeLogin'
 
 const App = () => {
   return (
-    <div>
+    <div className=''>
        {/* <Navbar/>
       <Hero/> 
       <Industries/> 
@@ -22,8 +23,9 @@ const App = () => {
 
       {/* <Experience/> */}
 
-      <AdminLogin/>
-
+   {/* <AdminLogin/> */}
+   <EmployeeLogin/>
+  
       
 
      
