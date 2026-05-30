@@ -9,6 +9,7 @@ import Selfie from './components/Selfie'
 import Experience from './components/Experience/Experience'
 import AdminLogin from './components/Admin/AdminLogin'
 import EmployeeLogin from './components/Employee/EmployeeLogin'
+import VisitorLogin from './components/Visitor/VisitorLogin'
 
 const App = () => {
   return (
@@ -24,7 +25,9 @@ const App = () => {
       {/* <Experience/> */}
 
    {/* <AdminLogin/> */}
-   <EmployeeLogin/>
+   {/* <EmployeeLogin/> */}
+
+   <VisitorLogin/>
   
       
 
