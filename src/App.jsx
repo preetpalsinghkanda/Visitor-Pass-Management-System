@@ -4,15 +4,19 @@ import Navbar from './components/Navbar'
 import Industries from './components/Industries'
 import Footer from './components/Footer'
 import Mission from './components/Mission'
+import Success from './components/Success'
 
 const App = () => {
   return (
     <div>
-        <Navbar/>
+        {/* <Navbar/>
       <Hero/> 
       <Industries/> 
+      
        <Mission/>
-      <Footer/> 
+      <Footer/>  */}
+
+      <Success/>
 
      
 
