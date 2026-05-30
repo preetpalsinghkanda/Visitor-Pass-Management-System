@@ -8,4 +8,15 @@ body {
     font-variation-settings:
         "wdth" 100;
 
+    -ms-overflow-style: none;
+
+}
+
+/* To hide ScrollBar from Hero Page */
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
 }

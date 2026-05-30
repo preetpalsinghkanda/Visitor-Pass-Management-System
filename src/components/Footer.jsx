@@ -19,7 +19,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className=" my-20  flex flex-col gap-20  max-w-[90rem] mx-auto">
+    <div className=" mt-40 mb-10 flex flex-col gap-20  max-w-[90rem] mx-auto">
       <div className="text-center flex justify-center flex-col items-center">
         <h1 className="text-7xl font-bold">VISTRA</h1>
         
