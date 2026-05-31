@@ -18,11 +18,11 @@ const VisitorLogin = () => {
         <div className=" flex flex-col gap-3 pt-10 ">
           <div className="flex flex-col">
             <label htmlFor="email-visitor">Email</label>
-            <input type="text" className="border px-4 py-3 outline-0 " />
+            <input type="text" placeholder="name@company.com" className="border px-4 py-3 outline-0 " />
           </div>
           <div className="flex flex-col">
             <label htmlFor="pass-visitor">Password</label>
-            <input type="Password" className="border outline-0 px-4 py-3" />
+            <input type="Password" placeholder="******" className="border outline-0 px-4 py-3" />
           </div>
           <button className=" py-4 my-4 bg-[#000000dd] text-white">
             Sign in to Facility
