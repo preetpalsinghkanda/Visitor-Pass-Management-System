@@ -12,6 +12,7 @@ import EmployeeLogin from './components/Employee/EmployeeLogin'
 import VisitorLogin from './components/Visitor/VisitorLogin'
 import SecurityLogin from './components/Security/SecurityLogin'
 import VisitorDashBoard from './components/Visitor/VisitorDashBoard'
+import VisitorPass from './components/Visitor/VisitorPass'
 
 const App = () => {
   return (
@@ -33,7 +34,9 @@ const App = () => {
    {/* <SecurityLogin/> */}
 
 
-   <VisitorDashBoard/>
+   {/* <VisitorDashBoard/> */}
+
+   <VisitorPass/>
   
       
 
