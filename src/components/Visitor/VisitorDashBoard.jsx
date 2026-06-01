@@ -1,11 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import VistorContext from "../../context/VistorContext";
 import Navbar from "../Navbar";
 
 const VisitorDashBoard = () => {
   const { heroPage, setHeroPage } = useContext(VistorContext);
+
+  const date = new Date().toLocaleDateString();
+
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+  }, []);
+
   return (
-    <div className=" max-w-[90rem]  mx-auto flex flex-col ">
+    <div className=" max-w-[90rem]  h-screen mx-auto flex flex-col ">
       {/* Visior Navbar */}
       <div className="flex items-center justify-between  flex-row">
         <div className="text-4xl items-center bg-black py-2 text-white px-5 rounded-full font-extrabold">
@@ -38,7 +49,7 @@ const VisitorDashBoard = () => {
         </div>
       </div>
 
-      <div className="border my-10">
+      <div className=" my-10 ml-10">
         <h2 className="text-4xl font-medium">
           Hi, <span className="text-5xl font-bold">Billy Butcher</span>
         </h2>
@@ -48,8 +59,8 @@ const VisitorDashBoard = () => {
         </p>
       </div>
 
-      <div className="border grid grid-cols-3  gap-6 self-end bg-[#000000dd] text-white p-10 rounded-full ">
-        <div className="flex flex-1 px-6 place-items-center py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+      <div className=" grid grid-cols-3 bg-[#000000dd] gap-6 self-end  text-white p-10 rounded-full ">
+        <div className="flex flex-1 px-6 place-items-center py-3 gap-2 rounded-full flex-col  bg-white text-black">
           <div className="flex items-center gap-4 font-bold text-3xl">
             <span className=" material-symbols-outlined ">all_inbox</span>
             Total Pass
@@ -58,7 +69,7 @@ const VisitorDashBoard = () => {
           <span className="self-center text-5xl font-extrabold">7</span>
         </div>
 
-        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+        <div className="flex place-items-center bg-white flex-1 px-6 py-3 gap-2 rounded-full flex-col    text-black">
           <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
             <span class="material-symbols-outlined">pending_actions</span>
             Pending Pass
@@ -67,13 +78,31 @@ const VisitorDashBoard = () => {
           <span className="self-center text-5xl font-extrabold">2</span>
         </div>
 
-        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-full flex-col  bg-white  text-black">
           <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
             <span class="material-symbols-outlined">assignment_turned_in</span>
             Approved Pass
           </div>
 
           <span className="self-center text-5xl font-extrabold">4</span>
+        </div>
+      </div>
+
+      <button className="cursor-pointer my-12  font-bold text-2xl  flex self-center items-center gap-2">
+        Schedule a <span className="bg-black px-2 text-white">new</span> visit
+        <span class="material-symbols-outlined">arrow_right_alt</span>
+      </button>
+
+      <div className="flex justify-between absolute bottom-10  w-full pr-25">
+        <div className="flex    gap-4 text-xl">
+          <p className="">{time}</p>
+          <p className="">{date}</p>
+        </div>
+
+        <div>
+          <button className="text-xl flex items-center gap-3">
+            Sign Out <span class="material-symbols-outlined">logout</span>
+          </button>
         </div>
       </div>
     </div>
