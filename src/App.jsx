@@ -11,6 +11,7 @@ import AdminLogin from './components/Admin/AdminLogin'
 import EmployeeLogin from './components/Employee/EmployeeLogin'
 import VisitorLogin from './components/Visitor/VisitorLogin'
 import SecurityLogin from './components/Security/SecurityLogin'
+import VisitorDashBoard from './components/Visitor/VisitorDashBoard'
 
 const App = () => {
   return (
@@ -29,7 +30,10 @@ const App = () => {
    {/* <EmployeeLogin/> */}
 
    {/* <VisitorLogin/> */}
-   <SecurityLogin/>
+   {/* <SecurityLogin/> */}
+
+
+   <VisitorDashBoard/>
   
       
 

@@ -1,0 +1,83 @@
+import React, { useContext } from "react";
+import VistorContext from "../../context/VistorContext";
+import Navbar from "../Navbar";
+
+const VisitorDashBoard = () => {
+  const { heroPage, setHeroPage } = useContext(VistorContext);
+  return (
+    <div className=" max-w-[90rem]  mx-auto flex flex-col ">
+      {/* Visior Navbar */}
+      <div className="flex items-center justify-between  flex-row">
+        <div className="text-4xl items-center bg-black py-2 text-white px-5 rounded-full font-extrabold">
+          VISTRA
+        </div>
+        <div className="self-center ">
+          <Navbar />
+        </div>
+        <div className="w-fit  self-end py-1.5 my-2 px-4 rounded-full text-white bg-black flex items-center gap-4">
+          <span className="material-symbols-outlined">
+            notifications_unread
+          </span>
+
+          <div className="h-8 w-px bg-white/30"></div>
+
+          <div className="flex flex-row-reverse items-center gap-3">
+            <div className="h-10 w-10">
+              <img
+                className="h-full w-full object-cover rounded-full"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI0bbTPaE1UCqmXjfKZqoac55Olqn7fbGY_g&s"
+                alt=""
+              />
+            </div>
+
+            <div className="leading-none">
+              <h5 className="font-bold text-lg">Billy Butcher</h5>
+              <span className="text-sm">Guest Explorer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border my-10">
+        <h2 className="text-4xl font-medium">
+          Hi, <span className="text-5xl font-bold">Billy Butcher</span>
+        </h2>
+        <p className="text-xl text-[#0000008d]">
+          Welcome to visitor portal.Manage your access and coordinate your
+          facility visits seamlessly.
+        </p>
+      </div>
+
+      <div className="border grid grid-cols-3  gap-6 self-end bg-[#000000dd] text-white p-10 rounded-full ">
+        <div className="flex flex-1 px-6 place-items-center py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+          <div className="flex items-center gap-4 font-bold text-3xl">
+            <span className=" material-symbols-outlined ">all_inbox</span>
+            Total Pass
+          </div>
+
+          <span className="self-center text-5xl font-extrabold">7</span>
+        </div>
+
+        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
+            <span class="material-symbols-outlined">pending_actions</span>
+            Pending Pass
+          </div>
+
+          <span className="self-center text-5xl font-extrabold">2</span>
+        </div>
+
+        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-full flex-col border bg-white  text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
+            <span class="material-symbols-outlined">assignment_turned_in</span>
+            Approved Pass
+          </div>
+
+          <span className="self-center text-5xl font-extrabold">4</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default VisitorDashBoard;
