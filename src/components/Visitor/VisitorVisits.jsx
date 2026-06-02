@@ -11,13 +11,13 @@ const VisitorVisits = () => {
         </p>
       </div>
 
-      <div className="border flex justify-between">
+      <div className=" flex justify-between">
         <div>
           <h4 className="text-3xl font-bold">Upcoming Visits</h4>
           <div className="flex gap-6">
             <div className="">
-              <div className="border  px-10 py-6 max-w-130 my-6">
-                <div className="flex items-center justify-between">
+              <div className="border  px-10 py-6  my-6">
+                <div className="flex items-center gap-6 justify-between">
                   <h4 className="text-3xl">Dr. Elias Vance</h4>{" "}
                   <span className=" bg-black px-4 py-1 text-sm text-white">
                     Confirmed
@@ -57,8 +57,8 @@ const VisitorVisits = () => {
               </div>
             </div>
             <div className="">
-              <div className="border  px-10 py-6 max-w-130 my-6">
-                <div className="flex items-center justify-between">
+              <div className="border  px-10 py-6  my-6">
+                <div className="flex items-center gap-6 justify-between">
                   <h4 className="text-3xl">Dr. Elias Vance</h4>{" "}
                   <span className=" bg-black px-4 py-1 text-sm text-white">
                     Confirmed

@@ -15,6 +15,7 @@ import VisitorDashBoard from './components/Visitor/VisitorDashBoard'
 import VisitorPass from './components/Visitor/VisitorPass'
 import VisitorSettings from './components/Visitor/VisitorSettings'
 import VisitorVisits from './components/Visitor/VisitorVisits'
+import EmployeeDashboard from './components/Employee/EmployeeDashboard'
 
 const App = () => {
   return (
@@ -42,7 +43,8 @@ const App = () => {
 
    {/* <VisitorSettings/> */}
 
-   <VisitorVisits/>
+   {/* <VisitorVisits/> */}
+   <EmployeeDashboard/>
   
       
 
