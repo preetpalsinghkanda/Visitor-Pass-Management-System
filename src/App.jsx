@@ -14,6 +14,7 @@ import SecurityLogin from './components/Security/SecurityLogin'
 import VisitorDashBoard from './components/Visitor/VisitorDashBoard'
 import VisitorPass from './components/Visitor/VisitorPass'
 import VisitorSettings from './components/Visitor/VisitorSettings'
+import VisitorVisits from './components/Visitor/VisitorVisits'
 
 const App = () => {
   return (
@@ -39,7 +40,9 @@ const App = () => {
 
    {/* <VisitorPass/ */}
 
-   <VisitorSettings/>
+   {/* <VisitorSettings/> */}
+
+   <VisitorVisits/>
   
       
 
