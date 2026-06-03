@@ -3,17 +3,7 @@ import VistorContext from "../../context/VistorContext";
 import Navbar from "../Navbar";
 
 const VisitorDashBoard = () => {
-  const { heroPage, setHeroPage } = useContext(VistorContext);
-
-  const date = new Date().toLocaleDateString();
-
-  const [time, setTime] = useState(new Date().toLocaleTimeString());
-
-  useEffect(() => {
-    setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
-  }, []);
+  const { heroPage, setHeroPage ,date , time} = useContext(VistorContext);
 
   return (
     <div className=" max-w-[90rem]  h-screen mx-auto flex flex-col ">

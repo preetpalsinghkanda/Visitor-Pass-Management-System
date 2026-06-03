@@ -83,7 +83,7 @@ const EmployeeDashboard = () => {
                   </div>
                 </div>
               </div>
-            
+
               <div className="flex flex-col">
                 <span>lightliger02@gmail.com</span>
                 <span>+91 0000000000</span>
