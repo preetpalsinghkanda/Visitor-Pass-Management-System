@@ -1,22 +1,48 @@
 import VistorContext from "./VistorContext";
 import { useState } from "react";
 import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
 function VistorProvider({ children }) {
   const [heroPage, setHeroPage] = useState("Home");
-
   const date = new Date().toLocaleDateString();
-
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
+  //user
+
+  const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
+
   useEffect(() => {
-    setInterval(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
     }, 1000);
+
+    return ()=> clearInterval(interval)
   }, []);
 
   return (
-    <VistorContext.Provider value={{ heroPage, setHeroPage, date, time }}>
+    <VistorContext.Provider
+      value={{
+        heroPage,
+        setHeroPage,
+        date,
+        time,
+        user,
+        setUser,
+        role,
+        setRole,
+      }}
+    >
       {children}
     </VistorContext.Provider>
   );

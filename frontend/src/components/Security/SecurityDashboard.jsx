@@ -3,6 +3,7 @@ import VistorContext from "../../context/VistorContext";
 
 const SecurityDashboard = () => {
   const { date, time } = useContext(VistorContext);
+
   return (
     <div className="max-w-[90rem] h-screen  mx-auto justify-center flex">
       <div className=" flex  px-4 py-10 flex-col gap-8 items-center">
