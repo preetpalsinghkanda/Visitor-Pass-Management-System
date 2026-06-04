@@ -18,10 +18,12 @@ import VisitorVisits from './components/Visitor/VisitorVisits'
 import EmployeeDashboard from './components/Employee/EmployeeDashboard'
 import SecurityDashboard from './components/Security/SecurityDashboard'
 import VisitorSignup from './components/Visitor/VisitorSignup'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
     <div className=''>
+     <Toaster/>
        {/* <Navbar/>
       <Hero/> 
       <Industries/> 
