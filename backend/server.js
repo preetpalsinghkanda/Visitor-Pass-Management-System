@@ -23,15 +23,6 @@ app.use("/users" , userRoutes)
 
 
 
-app.get("/", (req, res) => {
-    res.send("hello")
-})
-
-
-
-
-
-
 
 
 
