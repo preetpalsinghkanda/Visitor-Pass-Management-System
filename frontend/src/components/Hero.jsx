@@ -3,9 +3,10 @@ import visitorSelfie from "../assets/home-background-min.webp";
 import cards from "../assets/cards.webp";
 import meeting from "../assets/meeting.webp";
 import VistorContext from "../context/VistorContext";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  
+  const navigate = useNavigate();
 
   return (
     <div className="">
@@ -15,7 +16,7 @@ const Hero = () => {
           The future of enterprise access. Intelligence woven into every entry.
         </p>
 
-        <button className=" cursor-pointer shadow-[0_0px_15px_rgba(0,0,0,0.50)]  px-7 py-2 text-3xl bg-[#111111] text-[#FFFFFF]">
+        <button onClick={()=>navigate("/experience")} className=" cursor-pointer shadow-[0_0px_15px_rgba(0,0,0,0.50)]  px-7 py-2 text-3xl bg-[#111111] text-[#FFFFFF]">
           ENTER PORTAL
         </button>
       </div>
