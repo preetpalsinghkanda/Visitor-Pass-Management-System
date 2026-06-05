@@ -4,8 +4,8 @@ const VisitorSettings = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div className="max-w-[90rem] mx-auto border justify-center flex-col flex items-start h-screen">
-      <div className="max-w-[35rem] p-10 border mx-auto  flex flex-col gap-6">
+    <div className="max-w-[90rem] mx-auto  justify-center flex-col flex items-start ">
+      <div className="max-w-[35rem] p-10 my-3 border mx-auto  flex flex-col gap-6">
         <div>
           <h3 className="text-5xl font-extrabold">Settings</h3>
           <p className="text-lg font-medium">
@@ -59,8 +59,8 @@ const VisitorSettings = () => {
           </div>
         </div>
         <div className=" flex justify-around">
-          <button className="px-6 py-2 border">Discard Changes</button>
-          <button className="px-6 py-2 border bg-black text-white">
+          <button className="px-6 py-2 cursor-pointer border">Discard Changes</button>
+          <button className="px-6 py-2 cursor-pointer border bg-black text-white">
             Save Changes
           </button>
         </div>

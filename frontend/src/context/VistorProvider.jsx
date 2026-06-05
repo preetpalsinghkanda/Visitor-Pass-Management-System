@@ -6,14 +6,16 @@ import { auth } from "../firebase";
 
 function VistorProvider({ children }) {
   const [heroPage, setHeroPage] = useState("Home");
+  const [visitorPage, setVisitorPage] = useState("Dashboard");
+
   const date = new Date().toLocaleDateString();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
-//home Navbar
-    const homeNavbar = [
+  //home Navbar
+  const homeNavbar = [
     {
       name: "Home",
-      path : "/",
+      path: "/",
       icon: "home",
     },
     {
@@ -22,7 +24,7 @@ function VistorProvider({ children }) {
     },
     {
       name: "About",
-      path : "/about",
+      path: "/about",
       icon: "info",
     },
     {
@@ -31,6 +33,31 @@ function VistorProvider({ children }) {
     },
   ];
 
+  //visitor navbar
+
+  const visitorNavbar = [
+    {
+      name: "Dashboard",
+      path: "/visitor/dashboard",
+      icon: "home",
+    },
+    {
+      name: "Pass",
+      path: "/visitor/pass",
+      icon: "id_card",
+    },
+    {
+      name: "Visits",
+      path: "/visitor/visits",
+      icon: "list_alt",
+    },
+
+    {
+      name: "Settings",
+      path: "/visitor/settings",
+      icon: "settings",
+    },
+  ];
 
   //user
 
@@ -50,7 +77,7 @@ function VistorProvider({ children }) {
       setTime(new Date().toLocaleTimeString());
     }, 1000);
 
-    return ()=> clearInterval(interval)
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -65,6 +92,9 @@ function VistorProvider({ children }) {
         role,
         setRole,
         homeNavbar,
+        visitorPage,
+        setVisitorPage,
+        visitorNavbar,
       }}
     >
       {children}
