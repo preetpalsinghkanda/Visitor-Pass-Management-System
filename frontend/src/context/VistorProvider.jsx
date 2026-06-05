@@ -9,6 +9,29 @@ function VistorProvider({ children }) {
   const date = new Date().toLocaleDateString();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
+//home Navbar
+    const homeNavbar = [
+    {
+      name: "Home",
+      path : "/",
+      icon: "home",
+    },
+    {
+      name: "",
+      icon: "",
+    },
+    {
+      name: "About",
+      path : "/about",
+      icon: "info",
+    },
+    {
+      name: "",
+      icon: "",
+    },
+  ];
+
+
   //user
 
   const [user, setUser] = useState(null);
@@ -41,6 +64,7 @@ function VistorProvider({ children }) {
         setUser,
         role,
         setRole,
+        homeNavbar,
       }}
     >
       {children}

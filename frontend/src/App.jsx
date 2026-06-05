@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Industries from "./components/Industries";
@@ -20,37 +20,38 @@ import SecurityDashboard from "./components/Security/SecurityDashboard";
 import VisitorSignup from "./components/Visitor/VisitorSignup";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
+import VistorContext from "./context/VistorContext";
+import About from "./components/About";
 
 const App = () => {
+  const { heroPage, setHeroPage, homeNavbar } = useContext(VistorContext);
   return (
     <div className="">
       <Toaster />
+      <Navbar currentPage={heroPage} setPage={setHeroPage} navbar={homeNavbar} />
       <Routes>
+       
         <Route
           path="/"
           element={
             <>
-            <Navbar />
               <Hero />
-               <Industries/> 
-               <Success/>
-               <Mission/>
-               <Selfie/>
-               <Footer/>
+              <Industries />
+              <Success />
+              <Mission />
+              <Selfie />
+              <Footer />
             </>
           }
         />
+        <Route path="/about" element={<About />} />
+        <Route path="/experience" element={<Experience />} />
 
-<Route path="/experience"  element={<Experience/>} /> 
-        
-  <Route path="/visitor/signup" element={<VisitorSignup/>} />
-  <Route path="/visitor/login" element={<VisitorLogin/>} />   
-  <Route path="/visitor/dashboard" element={<VisitorDashBoard/>} />
-  <Route path="/visitor/settings" element={<VisitorSettings/>} />
-  <Route path="/visitor/pass" element={<VisitorPass/>} />
-    
-
-       
+        <Route path="/visitor/signup" element={<VisitorSignup />} />
+        <Route path="/visitor/login" element={<VisitorLogin />} />
+        <Route path="/visitor/dashboard" element={<VisitorDashBoard />} />
+        <Route path="/visitor/settings" element={<VisitorSettings />} />
+        <Route path="/visitor/pass" element={<VisitorPass />} />
 
         {/* <AdminLogin/> */}
         {/* <EmployeeLogin/> */}

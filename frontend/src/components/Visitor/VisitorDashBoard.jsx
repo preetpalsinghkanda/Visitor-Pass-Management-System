@@ -13,7 +13,7 @@ const VisitorDashBoard = () => {
           VISTRA
         </div>
         <div className="self-center ">
-          <Navbar />
+         {/* navbar  */}
         </div>
         <div className="w-fit  self-end py-1.5 my-2 px-4 rounded-full text-white bg-black flex items-center gap-4">
           <span className="material-symbols-outlined">
