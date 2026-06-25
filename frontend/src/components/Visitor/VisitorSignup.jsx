@@ -34,29 +34,27 @@ const VisitorSignup = () => {
       }
 
       await toast.promise(
-        
-        (async ()=> {
+        (async () => {
+          const userCreate = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              pass,
+            ),
+            firebaseId = userCreate.user.uid;
 
-          const userCreate = await createUserWithEmailAndPassword(auth, email, pass),
-       firebaseId = userCreate.user.uid;
-
-     await axios.post(
-        "http://localhost:5000/users/register",
+          await axios.post("http://localhost:5000/users/register", {
+            firebaseId,
+            email,
+            name,
+            role: "visitor",
+          });
+        })(),
         {
-          firebaseId,
-          email,
-          name,
-          role: "visitor",
-        },
-      );
-
-        })()
-        ,{
-         loading: "Creating Account...",
+          loading: "Creating Account...",
           success: "Account Created Successfully :)",
           error: "Registration Failed :(",
-      })
-      
+        },
+      );
     } catch (err) {
       toast.error(err.message || "Something went wrong");
     }

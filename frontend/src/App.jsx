@@ -42,7 +42,9 @@ const App = () => {
   // show visitor Navbar
   const showVisitorNavbar =
     location.pathname === "/visitor/dashboard" ||
-    location.pathname === "/visitor/settings" || location.pathname === "/visitor/pass"
+    location.pathname === "/visitor/settings" ||
+    location.pathname === "/visitor/pass" ||
+    location.pathname === "/visitor/visits"
 
   return (
     <>
@@ -65,7 +67,6 @@ const App = () => {
       )}
 
       <Routes>
-
         {/* home routes  */}
         <Route
           path="/"
@@ -90,25 +91,21 @@ const App = () => {
         <Route path="/visitor/dashboard" element={<VisitorDashBoard />} />
         <Route path="/visitor/settings" element={<VisitorSettings />} />
         <Route path="/visitor/pass" element={<VisitorPass />} />
+        <Route path="/visitor/visits" element={<VisitorVisits />} />
 
-        {/* <AdminLogin/> */}
-        {/* <EmployeeLogin/> */}
+        {/* employee routes   */}
 
-        {/* <VisitorLogin/> */}
-        {/* <SecurityLogin/> */}
+        <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
+        <Route path="/employee/login" element={<EmployeeLogin />} />
 
-     
+        {/* security routes  */}
+        <Route path="/security/dashboard" element={<SecurityDashboard />} />
+        <Route path="/security/login" element={<SecurityLogin />} />
 
-       
+        {/* admin  */}
 
-        {/* <VisitorSettings/> */}
-
-        {/* <VisitorVisits/> */}
-        {/* <EmployeeDashboard/> */}
-
-        {/* <SecurityDashboard/> */}
-
-        {/* <VisitorSignup /> */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminLogin/>} />
       </Routes>
     </>
   );

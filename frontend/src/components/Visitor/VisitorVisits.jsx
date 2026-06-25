@@ -143,7 +143,7 @@ const VisitorVisits = () => {
             </tbody>
           </table>
 
-          <button className="bg-black my-6 text-white px-6 py-2 self-center">
+          <button className="bg-black mt-4 cursor-pointer text-white px-6 py-2 self-center">
             Load More History
           </button>
         </div>

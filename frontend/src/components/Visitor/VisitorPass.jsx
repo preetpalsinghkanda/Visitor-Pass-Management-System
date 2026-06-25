@@ -2,8 +2,8 @@ import React from "react";
 
 const VisitorPass = () => {
   return (
-    <div className=" flex h-screen justify-center items-center mx-auto max-w-[90rem]">
-      <div className="border px-10 py-10 max-w-[37rem] ">
+    <div className=" flex  justify-center items-center mx-auto max-w-[90rem] ">
+      <div className="border px-10 py-10 max-w-[37rem] my-2 ">
         <div className="flex flex-col gap-2">
           <h3 className="text-5xl font-extrabold">New Visit Request</h3>
           <p className="text-lg font-medium text-[#000000ab]">

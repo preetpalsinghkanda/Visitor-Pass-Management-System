@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const VisitorSettings = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   return (
     <div className="max-w-[90rem] mx-auto  justify-center flex-col flex items-start ">
@@ -59,7 +59,9 @@ const VisitorSettings = () => {
           </div>
         </div>
         <div className=" flex justify-around">
-          <button className="px-6 py-2 cursor-pointer border">Discard Changes</button>
+          <button className="px-6 py-2 cursor-pointer border">
+            Discard Changes
+          </button>
           <button className="px-6 py-2 cursor-pointer border bg-black text-white">
             Save Changes
           </button>
@@ -89,7 +91,7 @@ const VisitorSettings = () => {
             />
             <label
               for="switch-component"
-              class={`absolute top-0 left-0 w-5 h-5 ${isChecked ? "bg-white" : "bg-black"}  rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer`}
+              class={`absolute top-0 left-0  w-5 h-5 ${isChecked ? "bg-white  " : "bg-black"}  rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer`}
             ></label>
           </div>
         </div>

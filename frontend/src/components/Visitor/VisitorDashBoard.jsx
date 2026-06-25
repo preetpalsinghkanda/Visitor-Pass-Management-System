@@ -12,7 +12,7 @@ const navigate = useNavigate()
     <div className=" max-w-[90rem]   mx-auto flex flex-col ">
       {/* Visior Navbar */}
       <div className="flex items-center justify-between  flex-row">
-        <div className="text-4xl absolute top-2  items-center bg-black py-2 text-white px-5 rounded-full font-extrabold">
+        <div onClick={()=>{navigate("/")}} className="text-4xl  cursor-pointer absolute top-2  items-center  py-2 text-black px-5 rounded-full font-extrabold">
           VISTRA
         </div>
         
@@ -45,7 +45,7 @@ const navigate = useNavigate()
           Hi, <span className="text-5xl font-bold">Billy Butcher</span>
         </h2>
         <p className="text-xl text-[#0000008d]">
-          Welcome to visitor portal.Manage your access and coordinate your
+          Welcome to visitor portal manage your access and coordinate your
           facility visits seamlessly.
         </p>
       </div>
@@ -82,7 +82,9 @@ const navigate = useNavigate()
       <button onClick={()=>navigate("/visitor/pass")} className="cursor-pointer my-12  font-bold text-2xl  flex self-center items-center gap-2">
         Schedule a <span className="bg-black px-2 text-white">new</span> visit
         <span class="material-symbols-outlined">arrow_right_alt</span>
+        
       </button>
+      <hr className="border border-black w-40 mx-auto" />
 
       <div className="flex justify-between absolute bottom-10  w-full pr-25">
         <div className="flex    gap-4 text-xl">
