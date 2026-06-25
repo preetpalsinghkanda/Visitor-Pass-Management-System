@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
             })
         }
 
-        
+
         // user create
         const user = await User.create({
             firebaseId,
