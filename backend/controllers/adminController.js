@@ -73,9 +73,9 @@ const createUser = async (req, res) => {
 
 
         return res.status(201).json({
-            success : true ,
-            message : "USER CREATED",
-            user ,
+            success: true,
+            message: "USER CREATED",
+            user,
         })
 
 
@@ -92,20 +92,135 @@ const createUser = async (req, res) => {
     }
 }
 
-const updateUser = async (req , res) =>{
-    try{
+const updateUser = async (req, res) => {
+    try {
 
-        const {name , email, role}  = req.body 
+        const { name, email, role } = req.body
         const id = req.params.id
 
-    }catch(err){
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "USER DOESN'T EXIST"
+            })
+        }
+
+        user.name = name
+        user.role = role
+        user.email = email
+
+        await user.save()
+
+
+        return res.status(200).json({
+            success: true,
+            message: "USER UPDATED SUCCESSFULLY"
+        })
+
+
+
+    } catch (err) {
         return res.status(400).json({
-            message : err.message,
-            success : false,
+            message: err.message,
+            success: false,
+        })
+    }
+}
+
+const deleteUser = async (req, res) => {
+    try {
+
+        const id = req.params.id
+
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(404).json({
+                message: "USER NOT FOUND IN DB",
+                success: false,
+            })
+        }
+
+        await user.deleteOne()
+
+        return res.status(200).json({
+            success: true,
+            message: "USER DELETED SUCCESSFULLY "
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+            success: false
+        })
+    }
+}
+
+const banUser = async (req, res) => {
+
+    try {
+        const id = req.params.id
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(403).json({
+                message: "USER NOT FOUND IN DB",
+                success: false,
+            })
+        }
+
+        user.isUserBanned = true
+
+        await user.save()
+
+
+        return res.status(200).json({
+            success: true,
+            message: "USER BANNED"
+        })
+
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+            success: false
+        })
+    }
+}
+
+const unbanUser = async (req, res) => {
+    try {
+
+        const id = req.params.id
+
+        const user = await User.findById(id)
+
+        if (!user) {
+            return res.status(403).json({
+                message: "USER NOT FOUND IN DB",
+                success: false
+            })
+        }
+
+        user.isUserBanned = false
+
+        await user.save()
+
+        return res.status(200).json({
+            message: "USER UNBANNED",
+            success: true
+        })
+
+
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message,
+            success: false,
         })
     }
 }
 
 
-
-module.exports = { getAllUsers, getSingleUser, createUser , updateUser};
+module.exports = { getAllUsers, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
