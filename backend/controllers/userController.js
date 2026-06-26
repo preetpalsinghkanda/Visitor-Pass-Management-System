@@ -1,15 +1,22 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt")
 
 const registerUser = async (req, res) => {
 
 
     try {
-        const { firebaseId, name, email, role } = req.body;
+        const { name, email, password } = req.body;
 
 
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "ALL INPUTS ARE MANDATORY!"
+            })
+        }
         //user check
         const existUser = await User.findOne({
-            firebaseId,
+            email,
         })
 
         if (existUser) {
@@ -19,13 +26,15 @@ const registerUser = async (req, res) => {
             })
         }
 
+        const hashedPass = await bcrypt.hash(password, 10)
 
         // user create
         const user = await User.create({
-            firebaseId,
+
             name,
             email,
-            role,
+            password: hashedPass,
+
         })
 
         res.status(201).json({
@@ -44,4 +53,57 @@ const registerUser = async (req, res) => {
 }
 
 
-module.exports = { registerUser }
+const loginUser = async (req, res) => {
+
+    try {
+
+
+        const { email, password } = req.body;
+
+            // inputs check
+        if (!email || !password) {
+
+            return res.status(400).json({
+                success: false,
+                message: "EMAIL AND PASSWORD BOTH ARE MANDATORY!"
+            })
+
+        }
+
+        // login user check
+        const user = await User.findOne({ email })
+
+        if (!user) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Please enter valid Email & Password"
+            })
+        }
+
+        //pass check
+        const isPassMatch = await bcrypt.compare(password, user.password)
+
+        if (!isPassMatch) {
+            return res.status(400).json({
+                message: "Please enter valid Email & Password",
+                success: false,
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Login Sucessful (Welcome Back)"
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message,
+            success: false,
+        })
+    }
+}
+
+
+module.exports = { registerUser, loginUser }
