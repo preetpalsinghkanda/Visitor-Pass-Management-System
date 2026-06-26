@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser")
 
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require('./routes/adminRoutes')
+const dashboardRoutes = require("./routes/dashboardRoutes")
 
 app.use(cors())
 app.use(express.json())
@@ -19,6 +20,9 @@ connectDataBase();
 app.use("/users" , userRoutes)
 
 app.use("/admin" , adminRoutes)
+
+
+app.use("/dashboard" , dashboardRoutes)
 
 
 
