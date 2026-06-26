@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import idcardImg1 from "../../assets/idcard1.webp";
 import idcardImg2 from "../../assets/idcard2.webp";
 import idcardImg3 from "../../assets/idcard3.webp";
+import toast from "react-hot-toast";
+import api from "../../services/api";
+import VistorContext from "../../context/VistorContext";
+import { useNavigate } from "react-router-dom";
 
 const VisitorLogin = () => {
+  const navigate = useNavigate();
+  const { email, pass, setEmail, setPass } = useContext(VistorContext);
+
+  const handleLogin = async () => {
+    try {
+      if (!email || !pass) {
+        return toast.error("Email and Password are required");
+      }
+
+      await toast.promise(
+        api.post("/users/login", {
+          email,
+          password: pass,
+        }),
+        {
+          loading: "Logging in...",
+          success: "Welcome Back :)",
+          error: "Login Failed :(",
+        },
+      );
+
+      navigate("/visitor/dashboard");
+    } catch (err) {
+      toast.error(err.message || "Something went wrong");
+    }
+  };
+
   return (
     <div className=" mx-auto max-w-[90rem] flex items-center justify-between h-screen">
       <div className=" max-w-[35rem] px-15 py-15">
@@ -18,13 +49,28 @@ const VisitorLogin = () => {
         <div className=" flex flex-col gap-3 pt-10 ">
           <div className="flex flex-col">
             <label htmlFor="email-visitor">Email</label>
-            <input type="text" placeholder="name@company.com" className="border px-4 py-3 outline-0 " />
+            <input
+              onChange={(x) => setEmail(x.target.value)}
+              value={email}
+              type="text"
+              placeholder="name@company.com"
+              className="border px-4 py-3 outline-0 "
+            />
           </div>
           <div className="flex flex-col">
             <label htmlFor="pass-visitor">Password</label>
-            <input type="Password" placeholder="******" className="border outline-0 px-4 py-3" />
+            <input
+              value={pass}
+              onChange={(x) => setPass(x.target.value)}
+              type="Password"
+              placeholder="******"
+              className="border outline-0 px-4 py-3"
+            />
           </div>
-          <button className=" py-4 my-4 bg-[#000000dd] text-white">
+          <button
+            onClick={handleLogin}
+            className=" py-4 my-4 bg-[#000000dd] text-white"
+          >
             Sign in to Facility
           </button>
 
@@ -36,11 +82,7 @@ const VisitorLogin = () => {
       </div>
 
       <div className=" self-start mr-30 flex">
-        <img
-          src={idcardImg1}
-          className=" relative bottom-20 "
-          alt=""
-        />
+        <img src={idcardImg1} className=" relative bottom-20 " alt="" />
         <img src={idcardImg2} className="relative bottom-30" alt="" />
         <img src={idcardImg3} alt="" />
       </div>

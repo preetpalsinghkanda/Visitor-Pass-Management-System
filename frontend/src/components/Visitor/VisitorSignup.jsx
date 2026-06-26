@@ -1,15 +1,54 @@
-import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import api from "../../services/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import VistorContext from "../../context/VistorContext";
 
 const VisitorSignup = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [pass, setPass] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    pass,
+    setPass,
+    phone,
+    setPhone,
+    confirmPass,
+    setConfirmPass,
+  } = useContext(VistorContext);
+
+  const navigate = useNavigate();
+
+  // const handleRegister = async () => {
+  //   try {
+  //
+
+  //     await toast.promise(
+  //       (async () => {
+  //         const userCreate = await createUserWithEmailAndPassword(
+  //             auth,
+  //             email,
+  //             pass,
+  //           ),
+  //           firebaseId = userCreate.user.uid;
+
+  //         await axios.post("http://localhost:5000/users/register", {
+  //           firebaseId,
+  //           email,
+  //           name,
+  //           role: "visitor",
+  //         });
+  //       })(),
+  //       {
+  //
+  //       },
+  //     );
+  //   } catch (err) {
+  //     toast.error(err.message || "Something went wrong");
+  //   }
+  // };
 
   const handleRegister = async () => {
     try {
@@ -34,27 +73,20 @@ const VisitorSignup = () => {
       }
 
       await toast.promise(
-        (async () => {
-          const userCreate = await createUserWithEmailAndPassword(
-              auth,
-              email,
-              pass,
-            ),
-            firebaseId = userCreate.user.uid;
-
-          await axios.post("http://localhost:5000/users/register", {
-            firebaseId,
-            email,
-            name,
-            role: "visitor",
-          });
-        })(),
+        api.post("/users/register", {
+          name,
+          email,
+          phone,
+          password: pass,
+        }),
         {
           loading: "Creating Account...",
           success: "Account Created Successfully :)",
           error: "Registration Failed :(",
         },
       );
+
+      navigate("/visitor/login");
     } catch (err) {
       toast.error(err.message || "Something went wrong");
     }

@@ -5,6 +5,15 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
 function VistorProvider({ children }) {
+
+const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
+
+
   const [heroPage, setHeroPage] = useState("Home");
   const [visitorPage, setVisitorPage] = useState("Dashboard");
 
@@ -95,6 +104,11 @@ function VistorProvider({ children }) {
         visitorPage,
         setVisitorPage,
         visitorNavbar,
+        name, setName,
+        email,setEmail,
+        phone,setPhone,
+        pass,setPass,
+        confirmPass,setConfirmPass
       }}
     >
       {children}
