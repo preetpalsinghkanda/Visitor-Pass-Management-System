@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser")
 
 const userRoutes = require("./routes/userRoutes")
+const adminRoutes = require('./routes/adminRoutes')
 
 app.use(cors())
 app.use(express.json())
@@ -17,7 +18,7 @@ connectDataBase();
 
 app.use("/users" , userRoutes)
 
-
+app.use("/admin" , adminRoutes)
 
 
 
