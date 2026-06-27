@@ -4,11 +4,10 @@ import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 
 const VisitorDashBoard = () => {
-  const { date , time} = useContext(VistorContext);
+  const { date , time , handleLogout} = useContext(VistorContext);
 const navigate = useNavigate()
 
   return (
-
     <div className=" max-w-[90rem]   mx-auto flex flex-col ">
       {/* Visior Navbar */}
       <div className="flex items-center justify-between  flex-row">
@@ -93,7 +92,7 @@ const navigate = useNavigate()
         </div>
 
         <div>
-          <button className="text-xl cursor-pointer text-red-600 flex items-center gap-3">
+          <button onClick={handleLogout} className="text-xl cursor-pointer text-red-600 flex items-center gap-3">
             Sign Out <span class="material-symbols-outlined">logout</span>
           </button>
         </div>

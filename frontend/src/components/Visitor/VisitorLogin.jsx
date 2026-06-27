@@ -69,14 +69,19 @@ const VisitorLogin = () => {
           </div>
           <button
             onClick={handleLogin}
-            className=" py-4 my-4 bg-[#000000dd] text-white"
+            className=" py-4 my-4 cursor-pointer bg-[#000000dd] text-white"
           >
             Sign in to Facility
           </button>
 
           <div className="text-center">
             New visitor ?{" "}
-            <span className="font-extrabold">Signup for an access pass </span>
+            <span
+              onClick={() => navigate("/visitor/signup")}
+              className="cursor-pointer font-extrabold"
+            >
+              Signup for an access pass{" "}
+            </span>
           </div>
         </div>
       </div>

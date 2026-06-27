@@ -3,8 +3,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import api from '../services/api'
 
 function VistorProvider({ children }) {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -86,6 +91,18 @@ function VistorProvider({ children }) {
     return () => clearInterval(interval);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await api.post("/users/logout");
+
+      toast.success("LOGOUT SUCCESS");
+
+      navigate("/visitor/login");
+    } catch (err) {
+      toast.error(err.message || "Something went wrong");
+    }
+  };
+
   return (
     <VistorContext.Provider
       value={{
@@ -111,6 +128,7 @@ function VistorProvider({ children }) {
         setPass,
         confirmPass,
         setConfirmPass,
+        handleLogout,
       }}
     >
       {children}

@@ -173,7 +173,7 @@ const VisitorSignup = () => {
 
           <div className="text-center">
             Already have a pass?{" "}
-            <span className="font-extrabold cursor-pointer">Sign in here</span>
+            <span onClick={()=> navigate("/visitor/login")}  className=" font-extrabold cursor-pointer">Sign in here</span>
           </div>
         </div>
       </div>

@@ -5,14 +5,17 @@ import Loading from "./Loading";
 import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children , role }) => {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
+  const [userRole , setUserRole] = useState("")
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await api.get("/dashboard");
+        const res =  await api.get("/dashboard");
+
+        setUserRole(res.data.user.role)
 
         setIsAuth(true);
       } catch (err) {
@@ -31,6 +34,10 @@ const ProtectedRoute = ({ children }) => {
 
   if (!isAuth) {
     return <Navigate to="/visitor/login" />;
+  }
+
+  if(userRole !== role){
+    return <Navigate to="/" />
   }
 
   return children;

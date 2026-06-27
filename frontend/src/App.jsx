@@ -22,8 +22,8 @@ import { Toaster } from "react-hot-toast";
 import { Route, Routes, useLocation } from "react-router-dom";
 import VistorContext from "./context/VistorContext";
 import About from "./components/About";
-import Loading from "./components/Loading";
 import ProtectedRoute from "./components/ProtectedRoute";
+import GuestRoute from "./components/GuestRoute";
 
 const App = () => {
   const location = useLocation();
@@ -88,33 +88,113 @@ const App = () => {
 
         {/* visitor routes  */}
 
-        <Route path="/visitor/signup" element={<VisitorSignup />} />
-        <Route path="/visitor/login" element={<VisitorLogin />} />
+        <Route
+          path="/visitor/signup"
+          element={
+            <GuestRoute>
+              <VisitorSignup />
+            </GuestRoute>
+          }
+        />
+        <Route
+          path="/visitor/login"
+          element={
+            <GuestRoute>
+              <VisitorLogin />
+            </GuestRoute>
+          }
+        />
         <Route
           path="/visitor/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role={"visitor"}>
               <VisitorDashBoard />
             </ProtectedRoute>
           }
         />
-        <Route path="/visitor/settings" element={<VisitorSettings />} />
-        <Route path="/visitor/pass" element={<VisitorPass />} />
-        <Route path="/visitor/visits" element={<VisitorVisits />} />
+        <Route
+          path="/visitor/settings"
+          element={
+            <ProtectedRoute role={"visitor"}>
+              <VisitorSettings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/visitor/pass"
+          element={
+            <ProtectedRoute role={"visitor"}>
+              <VisitorPass />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/visitor/visits"
+          element={
+            <ProtectedRoute role={"visitor"}>
+              {" "}
+              <VisitorVisits />
+            </ProtectedRoute>
+          }
+        />
 
         {/* employee routes   */}
 
-        <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
-        <Route path="/employee/login" element={<EmployeeLogin />} />
+        <Route
+          path="/employee/dashboard"
+          element={
+            <ProtectedRoute role={"employee"}>
+              <EmployeeDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee/login"
+          element={
+            <GuestRoute>
+              {" "}
+              <EmployeeLogin />{" "}
+            </GuestRoute>
+          }
+        />
 
         {/* security routes  */}
-        <Route path="/security/dashboard" element={<SecurityDashboard />} />
-        <Route path="/security/login" element={<SecurityLogin />} />
+        <Route
+          path="/security/dashboard"
+          element={
+            <ProtectedRoute role={"security"}>
+              <SecurityDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/security/login"
+          element={
+            <GuestRoute>
+              {" "}
+              <SecurityLogin />{" "}
+            </GuestRoute>
+          }
+        />
 
         {/* admin  */}
 
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminLogin />} />
+        <Route
+          path="/admin/login"
+          element={
+            <GuestRoute>
+              <AdminLogin />
+            </GuestRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute role={"admin"}>
+              {/* <AdminLogin />    should be admin dashboard */}
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
     // <>
