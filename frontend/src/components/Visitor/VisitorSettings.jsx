@@ -1,7 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import VistorContext from "../../context/VistorContext";
+import toast from "react-hot-toast";
+import api from "../../services/api";
 
 const VisitorSettings = () => {
   const [isChecked, setIsChecked] = useState(true);
+  const { user, setUser, name, phone, setPhone } = useContext(VistorContext);
+
+  const handleUpdateProfile = async () => {
+    try {
+      if (user.name.trim().length < 3) {
+        return toast.error("NAME SHOULD BE VALID");
+      }
+
+      if (user.phone.trim().length !== 10) {
+        return toast.error("ENTER VALID PHONE NO");
+      }
+
+      await toast.promise(
+        api.put("/users/update", {
+          name: user.name,
+          phone: user.phone,
+        }),
+
+        {
+          loading: "SAVING..",
+          success: "PROFILE UPDATED",
+          error: "UPDATE FAIL :(",
+        },
+      );
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <div className="max-w-[90rem] mx-auto  justify-center flex-col flex items-start ">
@@ -36,6 +67,10 @@ const VisitorSettings = () => {
                   FULL NAME
                 </label>
                 <input
+                  onChange={(x) => {
+                    setUser({ ...user, name: x.target.value });
+                  }}
+                  value={user?.name}
                   type="text"
                   placeholder=""
                   className="border px-3 py-2 outline-0"
@@ -47,13 +82,26 @@ const VisitorSettings = () => {
                   htmlFor="visitor-display-name"
                   className="text-sm font-bold"
                 >
-                  DISPLAY NAME
+                  PHONE NUMBER
                 </label>
-                <input type="text" className="border px-3 py-2 outline-0" />
+                <input
+                  onChange={(x) => {
+                    setUser({
+                      ...user,
+                      phone: x.target.value,
+                    });
+                  }}
+                  value={user?.phone}
+                  type="text"
+                  className="border px-3 py-2 outline-0"
+                />
               </div>
 
               <div className="flex gap-4 flex-row text-sm font-bold">
-                Role :<span className="text-md font-medium">VISITOR</span>
+                Role :
+                <span className="text-md uppercase font-medium">
+                  {user?.role}
+                </span>
               </div>
             </div>
           </div>
@@ -62,7 +110,10 @@ const VisitorSettings = () => {
           <button className="px-6 py-2 cursor-pointer border">
             Discard Changes
           </button>
-          <button className="px-6 py-2 cursor-pointer border bg-black text-white">
+          <button
+            onClick={handleUpdateProfile}
+            className="px-6 py-2 cursor-pointer border bg-black text-white"
+          >
             Save Changes
           </button>
         </div>

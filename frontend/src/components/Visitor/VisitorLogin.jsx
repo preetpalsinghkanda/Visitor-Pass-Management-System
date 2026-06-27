@@ -31,7 +31,7 @@ const VisitorLogin = () => {
 
       navigate("/visitor/dashboard");
     } catch (err) {
-      toast.error(err.message || "Something went wrong");
+      console.log(err.message || "Something went wrong");
     }
   };
 

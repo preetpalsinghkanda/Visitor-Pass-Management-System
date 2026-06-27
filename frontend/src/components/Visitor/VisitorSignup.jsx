@@ -88,7 +88,7 @@ const VisitorSignup = () => {
 
       navigate("/visitor/login");
     } catch (err) {
-      toast.error(err.message || "Something went wrong");
+      console.log(err.message || "Something went wrong");
     }
   };
 

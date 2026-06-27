@@ -6,7 +6,7 @@ const registerUser = async (req, res) => {
 
 
     try {
-        const { name, email, password , phone } = req.body;
+        const { name, email, password, phone } = req.body;
 
 
         if (!name || !email || !password || !phone) {
@@ -34,7 +34,7 @@ const registerUser = async (req, res) => {
 
             name,
             email,
-            phone ,
+            phone,
             password: hashedPass,
 
         })
@@ -107,8 +107,8 @@ const loginUser = async (req, res) => {
         )
 
 
-        res.cookie("token" , token,{
-            maxAge : 24*60*60*1000
+        res.cookie("token", token, {
+            maxAge: 24 * 60 * 60 * 1000
         })
 
 
@@ -129,24 +129,55 @@ const loginUser = async (req, res) => {
 }
 
 
-const logoutUser = async (req , res) => {
+const logoutUser = async (req, res) => {
 
     try {
         res.clearCookie("token");
 
         return res.status(200).json({
-            message : "LOGOUT SUCCESS",
-            success : true ,
+            message: "LOGOUT SUCCESS",
+            success: true,
         })
-    }catch(err){
+    } catch (err) {
 
         return res.status(500).json({
-            message : err.message,
-            success : false ,
+            message: err.message,
+            success: false,
         })
     }
 
 }
 
+const updateUser = async (req, res) => {
+    try {
 
-module.exports = { registerUser, loginUser , logoutUser}
+        const { name, phone } = req.body
+
+        console.log(req.body)
+
+        const user = await User.findById(req.user.id)
+
+        user.name = name
+        user.phone = phone
+
+        await user.save()
+
+        console.log(user)
+
+        return res.status(200).json({
+            message: "PROFILE UPDATED",
+            user,
+        })
+
+    } catch (err) {
+
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
+
+
+module.exports = { registerUser, loginUser, logoutUser , updateUser }

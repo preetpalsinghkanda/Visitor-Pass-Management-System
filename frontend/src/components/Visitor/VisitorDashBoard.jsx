@@ -4,17 +4,22 @@ import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 
 const VisitorDashBoard = () => {
-  const { date , time , handleLogout} = useContext(VistorContext);
-const navigate = useNavigate()
+  const { date, time, handleLogout, user } = useContext(VistorContext);
+  const navigate = useNavigate();
 
   return (
     <div className=" max-w-[90rem]   mx-auto flex flex-col ">
       {/* Visior Navbar */}
       <div className="flex items-center justify-between  flex-row">
-        <div onClick={()=>{navigate("/")}} className="text-4xl  cursor-pointer absolute top-2  items-center  py-2 text-black px-5 rounded-full font-extrabold">
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+          className="text-4xl  cursor-pointer absolute top-2  items-center  py-2 text-black px-5 rounded-full font-extrabold"
+        >
           VISTRA
         </div>
-        
+
         <div className="w-fit absolute right-12 top- self-end py-1.5 my-2 px-4 rounded-full text-white bg-black flex items-center gap-4">
           <span className="material-symbols-outlined">
             notifications_unread
@@ -32,8 +37,10 @@ const navigate = useNavigate()
             </div>
 
             <div className="leading-none">
-              <h5 className="font-bold text-lg">Billy Butcher</h5>
-              <span className="text-sm">Guest Explorer</span>
+              <h5 className="font-bold text-lg">{user?.name}</h5>
+              <span className="text-[10px] uppercase">
+                {user?.role} Explorer
+              </span>
             </div>
           </div>
         </div>
@@ -41,7 +48,7 @@ const navigate = useNavigate()
 
       <div className=" my-10 ml-10">
         <h2 className="text-4xl font-medium">
-          Hi, <span className="text-5xl font-bold">Billy Butcher</span>
+          Hi, <span className="text-5xl font-bold">{user?.name}</span>
         </h2>
         <p className="text-xl text-[#0000008d]">
           Welcome to visitor portal manage your access and coordinate your
@@ -78,10 +85,12 @@ const navigate = useNavigate()
         </div>
       </div>
 
-      <button onClick={()=>navigate("/visitor/pass")} className="cursor-pointer my-12  font-bold text-2xl  flex self-center items-center gap-2">
+      <button
+        onClick={() => navigate("/visitor/pass")}
+        className="cursor-pointer my-12  font-bold text-2xl  flex self-center items-center gap-2"
+      >
         Schedule a <span className="bg-black px-2 text-white">new</span> visit
         <span class="material-symbols-outlined">arrow_right_alt</span>
-        
       </button>
       <hr className="border border-black w-40 mx-auto" />
 
@@ -92,7 +101,10 @@ const navigate = useNavigate()
         </div>
 
         <div>
-          <button onClick={handleLogout} className="text-xl cursor-pointer text-red-600 flex items-center gap-3">
+          <button
+            onClick={handleLogout}
+            className="text-xl  cursor-pointer text-red-600 flex items-center gap-3"
+          >
             Sign Out <span class="material-symbols-outlined">logout</span>
           </button>
         </div>

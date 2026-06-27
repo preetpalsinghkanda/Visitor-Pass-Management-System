@@ -1,11 +1,10 @@
 import VistorContext from "./VistorContext";
 import { useState } from "react";
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from '../services/api'
+import api from "../services/api";
 
 function VistorProvider({ children }) {
   const navigate = useNavigate();
@@ -75,12 +74,24 @@ function VistorProvider({ children }) {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
+  //use effects
 
-    return unsubscribe;
+  const currentUser = async () => {
+    try {
+      const res = await api.get("/dashboard");
+
+      console.log(res.data.user)
+
+      setUser(res.data.user);
+      setRole(res.data.user.role);
+    } catch (err) {
+      setUser(null);
+      setRole("");
+    }
+  };
+
+  useEffect(() => {
+    currentUser();
   }, []);
 
   useEffect(() => {
