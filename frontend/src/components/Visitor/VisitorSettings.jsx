@@ -2,10 +2,20 @@ import React, { useContext, useState } from "react";
 import VistorContext from "../../context/VistorContext";
 import toast from "react-hot-toast";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const VisitorSettings = () => {
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(true);
-  const { user, setUser, name, phone, setPhone } = useContext(VistorContext);
+  const {
+    user,
+    setUser,
+    name,
+    phone,
+    setPhone,
+    handleDiscard,
+    setOriginalUser,
+  } = useContext(VistorContext);
 
   const handleUpdateProfile = async () => {
     try {
@@ -13,11 +23,11 @@ const VisitorSettings = () => {
         return toast.error("NAME SHOULD BE VALID");
       }
 
-      if (user.phone.trim().length !== 10) {
+      if (!/^\d{10}$/.test(user.phone)) {
         return toast.error("ENTER VALID PHONE NO");
       }
 
-      await toast.promise(
+      const response = await toast.promise(
         api.put("/users/update", {
           name: user.name,
           phone: user.phone,
@@ -29,6 +39,9 @@ const VisitorSettings = () => {
           error: "UPDATE FAIL :(",
         },
       );
+
+      setUser(response.data.user);
+      setOriginalUser(response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -107,7 +120,10 @@ const VisitorSettings = () => {
           </div>
         </div>
         <div className=" flex justify-around">
-          <button className="px-6 py-2 cursor-pointer border">
+          <button
+            onClick={handleDiscard}
+            className="px-6 py-2 cursor-pointer border"
+          >
             Discard Changes
           </button>
           <button
@@ -129,7 +145,7 @@ const VisitorSettings = () => {
               Get notified when your visit is approved or rejected
             </p>
           </div>
-          <div class="relative inline-block w-11 h-5">
+          <div className="relative inline-block w-11 h-5">
             <input
               checked
               id="switch-component"
@@ -138,11 +154,11 @@ const VisitorSettings = () => {
               onClick={() => {
                 setIsChecked(!isChecked);
               }}
-              class="peer appearance-none   w-11 h-5 bg-slate-100 rounded-full checked:bg-black cursor-pointer transition-colors duration-300"
+              className="peer appearance-none   w-11 h-5 bg-slate-100 rounded-full checked:bg-black cursor-pointer transition-colors duration-300"
             />
             <label
               for="switch-component"
-              class={`absolute top-0 left-0  w-5 h-5 ${isChecked ? "bg-white  " : "bg-black"}  rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer`}
+              className={`absolute top-0 left-0  w-5 h-5 ${isChecked ? "bg-white  " : "bg-black"}  rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer`}
             ></label>
           </div>
         </div>

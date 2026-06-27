@@ -15,6 +15,8 @@ function VistorProvider({ children }) {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
+  const [originaluser, setOriginalUser] = useState(null);
+
   const [heroPage, setHeroPage] = useState("Home");
   const [visitorPage, setVisitorPage] = useState("Dashboard");
 
@@ -80,9 +82,8 @@ function VistorProvider({ children }) {
     try {
       const res = await api.get("/dashboard");
 
-      console.log(res.data.user)
-
       setUser(res.data.user);
+      setOriginalUser(res.data.user);
       setRole(res.data.user.role);
     } catch (err) {
       setUser(null);
@@ -114,6 +115,11 @@ function VistorProvider({ children }) {
     }
   };
 
+  const handleDiscard = () => {
+    setUser({ ...originaluser });
+    toast.success("DISCARD CHANGES");
+  };
+
   return (
     <VistorContext.Provider
       value={{
@@ -140,6 +146,7 @@ function VistorProvider({ children }) {
         confirmPass,
         setConfirmPass,
         handleLogout,
+        handleDiscard,
       }}
     >
       {children}
