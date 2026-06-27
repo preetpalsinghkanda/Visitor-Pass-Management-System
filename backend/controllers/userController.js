@@ -6,10 +6,10 @@ const registerUser = async (req, res) => {
 
 
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password , phone } = req.body;
 
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !phone) {
             return res.status(400).json({
                 success: false,
                 message: "ALL INPUTS ARE MANDATORY!"
@@ -34,6 +34,7 @@ const registerUser = async (req, res) => {
 
             name,
             email,
+            phone ,
             password: hashedPass,
 
         })

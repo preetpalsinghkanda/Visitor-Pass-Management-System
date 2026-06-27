@@ -22,6 +22,8 @@ import { Toaster } from "react-hot-toast";
 import { Route, Routes, useLocation } from "react-router-dom";
 import VistorContext from "./context/VistorContext";
 import About from "./components/About";
+import Loading from "./components/Loading";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   const location = useLocation();
@@ -44,7 +46,7 @@ const App = () => {
     location.pathname === "/visitor/dashboard" ||
     location.pathname === "/visitor/settings" ||
     location.pathname === "/visitor/pass" ||
-    location.pathname === "/visitor/visits"
+    location.pathname === "/visitor/visits";
 
   return (
     <>
@@ -88,7 +90,14 @@ const App = () => {
 
         <Route path="/visitor/signup" element={<VisitorSignup />} />
         <Route path="/visitor/login" element={<VisitorLogin />} />
-        <Route path="/visitor/dashboard" element={<VisitorDashBoard />} />
+        <Route
+          path="/visitor/dashboard"
+          element={
+            <ProtectedRoute>
+              <VisitorDashBoard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/visitor/settings" element={<VisitorSettings />} />
         <Route path="/visitor/pass" element={<VisitorPass />} />
         <Route path="/visitor/visits" element={<VisitorVisits />} />
@@ -105,9 +114,12 @@ const App = () => {
         {/* admin  */}
 
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminLogin/>} />
+        <Route path="/admin/dashboard" element={<AdminLogin />} />
       </Routes>
     </>
+    // <>
+    // <Loading/>
+    // </>
   );
 };
 

@@ -45,9 +45,9 @@ const getSingleUser = async (req, res) => {
 const createUser = async (req, res) => {
     try {
 
-        const { name, email, password, role } = req.body;
+        const { name, email, password, role , phone} = req.body;
 
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password || !role || !phone) {
             return res.status(400).json({
                 message: "ALL INPUTS ARE REQUIRED TO CREATE A USER",
                 success: false,
@@ -68,7 +68,7 @@ const createUser = async (req, res) => {
 
 
         const user = await User.create({
-            name, email, password: hashedPass, role,
+            name, email, password: hashedPass, role, phone
         })
 
 
@@ -95,7 +95,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
 
-        const { name, email, role } = req.body
+        const { name, email, role , phone } = req.body
         const id = req.params.id
 
         const user = await User.findById(id)
@@ -110,6 +110,7 @@ const updateUser = async (req, res) => {
         user.name = name
         user.role = role
         user.email = email
+        user.phone = phone
 
         await user.save()
 

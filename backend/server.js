@@ -10,30 +10,22 @@ const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require('./routes/adminRoutes')
 const dashboardRoutes = require("./routes/dashboardRoutes")
 
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}))
 app.use(express.json())
 
 app.use(cookieParser())
 
 connectDataBase();
 
-app.use("/users" , userRoutes)
+app.use("/users", userRoutes)
 
-app.use("/admin" , adminRoutes)
-
-
-app.use("/dashboard" , dashboardRoutes)
+app.use("/admin", adminRoutes)
 
 
-
-
-
-
-
-
-
-
-
+app.use("/dashboard", dashboardRoutes)
 
 
 

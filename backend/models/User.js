@@ -20,6 +20,16 @@ const userSchema = new mongoose.Schema(
             required: true,
             minlength: 6
 
+        },
+
+        phone: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+            minlength: 10,
+            maxlength: 10,
+
         }
         ,
         role: {
