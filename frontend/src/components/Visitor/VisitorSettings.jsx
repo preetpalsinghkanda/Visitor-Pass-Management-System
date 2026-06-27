@@ -15,6 +15,9 @@ const VisitorSettings = () => {
     setPhone,
     handleDiscard,
     setOriginalUser,
+    fileInputRef,
+    handlePhotoUpload,
+    imgPreview,
   } = useContext(VistorContext);
 
   const handleUpdateProfile = async () => {
@@ -59,14 +62,27 @@ const VisitorSettings = () => {
 
         <div className=" flex flex-row items-start gap-8">
           <div className="flex justify-center items-center  flex-col gap-2">
-            <div className="w-30 h-auto overflow-hidden rounded-xl">
+            <div className="w-30 h-34 border  overflow-hidden rounded-xl">
               <img
-                className="h-full w-full object-fit"
-                src="https://i.redd.it/t19z8g31axra1.jpg"
+                className="h-full w-full object-cover"
+                src={imgPreview ? imgPreview : user?.photo}
                 alt=""
               />
+              <input
+                className="w-full h-full object-cover"
+                type="file"
+                ref={fileInputRef}
+                onChange={handlePhotoUpload}
+                hidden
+                accept="image/*"
+              />
             </div>
-            <span className="text-sm cursor-pointer">CHANGE PHOTO</span>
+            <span
+              onClick={() => fileInputRef.current.click()}
+              className="text-[10px] rounded-full px-1.5 border-r border-l cursor-pointer"
+            >
+              CHANGE PHOTO
+            </span>
           </div>
           <div>
             <h5 className="text-2xl font-bold">Profile Identity</h5>

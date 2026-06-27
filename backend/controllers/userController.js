@@ -179,5 +179,42 @@ const updateUser = async (req, res) => {
     }
 }
 
+const updateProfilePhoto = async (req, res) => {
+    try {
 
-module.exports = { registerUser, loginUser, logoutUser , updateUser }
+
+        const user = await User.findById(req.user.id)
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "USER NOT FOUND"
+            })
+        }
+
+        user.photo = req.file.path
+
+        await user.save()
+
+        return res.status(200).json({
+            success: true,
+            message: "UPLOADED SUCCESSFULLY",
+            user,
+        })
+
+
+
+
+    } catch (err) {
+
+        return res.status(500).json({
+            success: false,
+            message: err.message
+
+        })
+
+    }
+}
+
+
+module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto }

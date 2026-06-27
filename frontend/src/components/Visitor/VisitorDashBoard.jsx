@@ -4,7 +4,8 @@ import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 
 const VisitorDashBoard = () => {
-  const { date, time, handleLogout, user } = useContext(VistorContext);
+  const { date, time, handleLogout, user, imgPreview } =
+    useContext(VistorContext);
   const navigate = useNavigate();
 
   return (
@@ -31,7 +32,7 @@ const VisitorDashBoard = () => {
             <div className="h-10 w-10">
               <img
                 className="h-full w-full object-cover rounded-full"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI0bbTPaE1UCqmXjfKZqoac55Olqn7fbGY_g&s"
+                src={imgPreview ? imgPreview : user?.photo}
                 alt=""
               />
             </div>

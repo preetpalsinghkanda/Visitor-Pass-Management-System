@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import { useRef } from "react";
 
 function VistorProvider({ children }) {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ function VistorProvider({ children }) {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
+  const [selectedImg, setSelectedImg] = useState(null);
+  const fileInputRef = useRef(null);
+  const [imgPreview, setImgPreview] = useState("");
+
   const [originaluser, setOriginalUser] = useState(null);
 
   const [heroPage, setHeroPage] = useState("Home");
@@ -22,6 +27,38 @@ function VistorProvider({ children }) {
 
   const date = new Date().toLocaleDateString();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  const handlePhotoUpload = async (x) => {
+    const img = x.target.files[0];
+
+    if (!img) return;
+
+    setSelectedImg(img);
+
+    //Preview Img
+
+    setImgPreview(URL.createObjectURL(img));
+
+    //Save Img of Profile
+
+    const formData = new FormData();
+
+    formData.append("photo", img);
+
+    try {
+      const photoRes = await api.put("/users/update-profile-photo", formData);
+
+      setUser(photoRes.data.user);
+      setOriginalUser(photoRes.data.user);
+
+      toast.success("PROFILE PICTURE UPDATED");
+
+      setImgPreview("");
+      setSelectedImg(null);
+    } catch (err) {
+      toast.error(err.message || "UPLOAD FAIL");
+    }
+  };
 
   //home Navbar
   const homeNavbar = [
@@ -137,7 +174,12 @@ function VistorProvider({ children }) {
         visitorNavbar,
         name,
         setName,
+        setSelectedImg,
+        selectedImg,
+        fileInputRef,
+        imgPreview,
         email,
+        handlePhotoUpload,
         setEmail,
         phone,
         setPhone,
