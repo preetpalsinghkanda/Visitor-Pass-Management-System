@@ -28,6 +28,21 @@ function VistorProvider({ children }) {
   const date = new Date().toLocaleDateString();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
+
+
+  const [host , setHost] = useState("") 
+  const [company , setCompany] = useState("")
+  const [visitDate , setVisitDate] = useState("")
+  
+
+
+
+
+
+
+
+
+
   const handlePhotoUpload = async (x) => {
     const img = x.target.files[0];
 

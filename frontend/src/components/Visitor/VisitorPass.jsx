@@ -72,7 +72,9 @@ const VisitorPass = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="text-area" className="font-extrabold">PURPOSE OF VISIT</label>
+            <label htmlFor="text-area" className="font-extrabold">
+              PURPOSE OF VISIT
+            </label>
             <textarea
               name="text-area"
               placeholder="Describe the intent of the meeting..."

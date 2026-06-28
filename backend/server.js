@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser")
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require('./routes/adminRoutes')
 const dashboardRoutes = require("./routes/dashboardRoutes")
+const visitRoutes = require("./routes/visitRoutes")
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -26,6 +27,8 @@ app.use("/admin", adminRoutes)
 
 
 app.use("/dashboard", dashboardRoutes)
+
+app.use('/visits', visitRoutes)
 
 
 
