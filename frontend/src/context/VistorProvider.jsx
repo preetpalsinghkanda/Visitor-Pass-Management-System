@@ -28,21 +28,28 @@ function VistorProvider({ children }) {
   const date = new Date().toLocaleDateString();
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
+  const [host, setHost] = useState("");
+  const [company, setCompany] = useState("");
+  const [visitDate, setVisitDate] = useState("");
+  const [visitTime, setVisitTime] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [checkBox, setCheckBox] = useState(false);
 
+  const [employees, setEmployees] = useState([]);
 
-  const [host , setHost] = useState("") 
-  const [company , setCompany] = useState("")
-  const [visitDate , setVisitDate] = useState("")
-  
+  // getEmployees by useffect
+  useEffect(() => {
+    const getEmployees = async () => {
+      try {
+        const res = await api.get("/users/employees");
+        setEmployees(res.data.employees);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+  }, []);
 
-
-
-
-
-
-
-
-
+  //photo upload handle
   const handlePhotoUpload = async (x) => {
     const img = x.target.files[0];
 
@@ -175,6 +182,20 @@ function VistorProvider({ children }) {
   return (
     <VistorContext.Provider
       value={{
+        host,
+        setHost,
+        company,
+        setCompany,
+        visitDate,
+        setVisitDate,
+        purpose,
+        setPurpose,
+        checkBox,
+        setCheckBox,
+        visitTime,
+        setVisitTime,
+        employees,
+        setEmployees,
         heroPage,
         setHeroPage,
         date,
