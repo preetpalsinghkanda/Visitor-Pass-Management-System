@@ -21,6 +21,7 @@ const VisitorLogin = () => {
         api.post("/users/login", {
           email,
           password: pass,
+          role: "visitor" ,
         }),
         {
           loading: "Logging in...",

@@ -37,8 +37,6 @@ function VistorProvider({ children }) {
 
   const [employees, setEmployees] = useState([]);
 
-
-
   // getEmployees by useffect
   useEffect(() => {
     const getEmployees = async () => {
@@ -166,13 +164,34 @@ function VistorProvider({ children }) {
     return () => clearInterval(interval);
   }, []);
 
+
+  //handle logout for all
   const handleLogout = async () => {
     try {
       await api.post("/users/logout");
 
       toast.success("LOGOUT SUCCESS");
 
-      navigate("/visitor/login");
+      switch (role) {
+        case "visitor":
+          navigate("/visitor/login");
+          break;
+
+        case "employee":
+          navigate("/employee/login");
+          break;
+
+        case "admin":
+          navigate("/admin/login");
+          break;
+
+        case "security":
+          navigate("/security/login");
+          break;
+
+        default:
+          navigate("/");
+      }
     } catch (err) {
       toast.error(err.message || "Something went wrong");
     }
@@ -187,7 +206,7 @@ function VistorProvider({ children }) {
     <VistorContext.Provider
       value={{
         host,
-      
+
         setHost,
         company,
         setCompany,

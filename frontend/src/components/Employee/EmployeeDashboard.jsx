@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import VistorContext from "../../context/VistorContext";
 
 const EmployeeDashboard = () => {
+
+  const{handleLogout} = useContext(VistorContext)
+
   return (
-    <div className="max-w-[90rem] mx-auto  ">
+    <div className="max-w-[90rem] mx-auto border ">
       <div>
-        <div>
-          <h4 className="text-5xl font-extrabold">Security Control Hub</h4>
-          <p>Here's an overview of your visitor pipeline.</p>
+        <div className="flex justify-between items-center">
+          <div className="">
+            <h4 className="text-5xl font-extrabold">Security Control Hub</h4>
+            <p>Here's an overview of your visitor pipeline.</p>
+          </div>
+          <button onClick={handleLogout} className="text-md  cursor-pointer text-red-600 flex items-center gap-3">
+            Log Out
+            <span class="material-symbols-outlined text-md">logout</span>
+          </button>
         </div>
 
         <div className="grid grid-cols-4  gap-10 my-6">

@@ -59,9 +59,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
     try {
-
-
-        const { email, password } = req.body;
+        const { email, password , role } = req.body;
 
         // inputs check
         if (!email || !password) {
@@ -91,6 +89,14 @@ const loginUser = async (req, res) => {
             return res.status(400).json({
                 message: "Please enter valid Email & Password",
                 success: false,
+            })
+        }
+
+
+        if(user.role !== role){
+            return res.status(403).json({
+                message : "UNAUTHORIZED LOGIN",
+                success : false
             })
         }
 
