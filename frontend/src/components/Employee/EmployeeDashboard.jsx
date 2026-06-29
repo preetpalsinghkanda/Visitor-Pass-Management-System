@@ -6,6 +6,7 @@ import api from "../../services/api";
 
 const EmployeeDashboard = () => {
   const { handleLogout } = useContext(VistorContext);
+  const [purposeModel , setPurposeModel] = useState(null)
 
   const [visits, setVisits] = useState([]);
 
@@ -143,7 +144,7 @@ const EmployeeDashboard = () => {
                 </div>
 
                 <div>
-                  <span className="border px-6 py-1 bg-[#000000a2] text-white cursor-pointer">
+                  <span onClick={()=> setPurposeModel(visit)} className="border px-6 py-1 bg-[#000000a2] text-white cursor-pointer">
                     View Purpose
                   </span>
                 </div>
@@ -161,6 +162,22 @@ const EmployeeDashboard = () => {
           </div>
         </div>
       </div>
+
+{purposeModel && (<div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-10">
+        <div className="bg-white gap-4 flex flex-col  p-6 rounded-2xl w-130 h-80 shadow-lg">
+          <div className="flex justify-between">
+            <span>PURPOSE</span>
+            <button onClick={()=> setPurposeModel(null)} className="cursor-pointer self-end text-white bg-black px-2">
+              Close
+            </button>
+          </div>
+
+          <div className="border bg-black text-white h-full px-2 py-4 rounded-lg">
+            <p>{purposeModel.purpose}</p>
+          </div>
+        </div>
+      </div>)}
+      
     </div>
   );
 };
