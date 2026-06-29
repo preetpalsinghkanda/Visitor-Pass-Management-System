@@ -11,4 +11,5 @@ router.post("/", authMiddleware, createVisit)
 router.get("/my" , authMiddleware , getMyVisits)
 
 
+
 module.exports = router
