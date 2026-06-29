@@ -40,4 +40,26 @@ const createVisit = async (req, res) => {
 
 }
 
-module.exports = { createVisit }
+const getMyVisits = async (req, res) => {
+    try {
+        const visits = await Visit.find({
+            visitor: req.user.id,
+        })
+
+            .populate("host", "name email")
+            .sort({ createdAt: -1 })
+
+
+        return res.status(200).json({
+            success: true,
+            visits,
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+module.exports = { createVisit, getMyVisits }

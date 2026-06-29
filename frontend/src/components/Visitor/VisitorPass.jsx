@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import VistorContext from "../../context/VistorContext";
+import toast from "react-hot-toast";
+import api from "../../services/api"
 
 const VisitorPass = () => {
   const {
@@ -18,6 +20,48 @@ const VisitorPass = () => {
     checkBox,
     setCheckBox,
   } = useContext(VistorContext);
+
+  const handleVisitSubmit = async () => {
+    try {
+      if ( !host || !company || !visitDate || !visitTime || !purpose) {
+        return toast.error("ALL INPUTS ARE REQUIRED");
+      }
+
+      if (purpose.trim().length < 10) {
+        return toast.error("PURPOSE SHOULD BE VALID");
+      }
+
+      if (!checkBox) {
+        return toast.error("ACCEPT THE DECLARATION");
+      }
+
+      await toast.promise(
+        api.post("/visits", {
+          host,
+          company,
+          visitTime,
+          purpose,
+          visitDate,
+        }),
+        {
+          loading: "SUBMITTING REQUEST...",
+          success: "VISIT REQUEST CREATED",
+          error: "REQUEST FAILED",
+        },
+      );
+
+      setHost("");
+      setCompany("");
+      setVisitDate("");
+      setVisitTime("");
+      setPurpose("");
+      setCheckBox(false);
+    } catch (err) {
+      console.log(err.response)
+      toast.error(err.message || "SOMETHING WENT WRONG");
+    }
+  };
+
   return (
     <div className=" flex  justify-center items-center mx-auto max-w-[90rem] ">
       <div className="border px-10 py-10 max-w-[37rem] my-2 ">
@@ -127,7 +171,7 @@ const VisitorPass = () => {
           <input
             type="checkbox"
             checked={checkBox}
-            onChange={(x) => setCheckBox(x.target.value)}
+            onChange={(x) => setCheckBox(x.target.checked)}
             className="  h-7 w-7  "
           />
           <p className="text-sm">
@@ -137,7 +181,7 @@ const VisitorPass = () => {
         </div>
 
         <div className="my-4">
-          <button className="border w-full py-3 bg-black text-white">
+          <button onClick={handleVisitSubmit} className="border cursor-pointer w-full py-3 bg-black text-white">
             SUBMIT REQUEST{" "}
           </button>
         </div>

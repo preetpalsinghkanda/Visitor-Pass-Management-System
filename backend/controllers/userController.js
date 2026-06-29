@@ -39,13 +39,14 @@ const registerUser = async (req, res) => {
 
         })
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             user,
         })
 
 
     } catch (err) {
+        console.log(err)
         res.status(500).json({
             message: err.message,
             success: false,
@@ -217,4 +218,28 @@ const updateProfilePhoto = async (req, res) => {
 }
 
 
-module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto }
+
+const getEmployees = async (req, res) => {
+    try {
+
+        const employees = await User.find({
+            role: "employee"
+        })
+
+
+        return res.status(200).json({
+            success: true,
+            employees,
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        })
+
+    }
+}
+
+
+module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto , getEmployees }

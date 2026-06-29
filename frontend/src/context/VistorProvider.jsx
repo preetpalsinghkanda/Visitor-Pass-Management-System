@@ -47,6 +47,8 @@ function VistorProvider({ children }) {
         console.log(err.message);
       }
     };
+
+    getEmployees();
   }, []);
 
   //photo upload handle
