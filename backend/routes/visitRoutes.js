@@ -3,10 +3,12 @@ const router = express.Router()
 
 const authMiddleware = require("../middleware/authMiddleware")
 
-const { createVisit } = require("../controllers/visitController")
+const { createVisit , getMyVisits } = require("../controllers/visitController")
 
 
 router.post("/", authMiddleware, createVisit)
+
+router.get("/my" , authMiddleware , getMyVisits)
 
 
 module.exports = router

@@ -1,7 +1,28 @@
 import React from "react";
 import meetingImg from "../../assets/meeting.webp";
+import { useContext, useState } from "react";
+import VistorContext from "../../context/VistorContext";
+import api from "../../services/api";
+import { useEffect } from "react";
 
 const VisitorVisits = () => {
+  const [myVisits, setMyVisits] = useState([]);
+  const [loadMore, setLoadMore] = useState(false);
+
+  useEffect(() => {
+    const getMyVisits = async () => {
+      try {
+        const res = await api.get("/visits/my");
+        console.log(res.data);
+        setMyVisits(res.data.visits);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    getMyVisits();
+  }, []);
+
   return (
     <div className="max-w-[90rem] mx-auto  flex flex-col gap-6">
       <div>
@@ -111,41 +132,59 @@ const VisitorVisits = () => {
       <div className="flex  flex-col">
         <h5 className="text-3xl font-bold">Visit History</h5>
         <div className=" flex flex-col">
-          <table className="w-full  border-zinc-800 text-left">
+          <table className="w-full table-fixed  border-zinc-800 text-left">
             <thead>
-              <tr className="border-b border-zinc-800">
-                <th className="p-4">Date</th>
-                <th className="p-4">Host</th>
-                <th className="p-4">Company</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Actions</th>
+              <tr className="border-b text-center border-zinc-800">
+                <th className="p-4 w-1/5">Date</th>
+                <th className="p-4 w-1/5">Host</th>
+                <th className="p-4 w-1/5">Company</th>
+                <th className="p-4 w-1/5">Status</th>
+                <th className="p-4  w-1/5">Actions</th>
               </tr>
             </thead>
 
-            <tbody>
-              <tr className="border-b border-zinc-800">
-                <td className="p-4">29/01/2026</td>
-                <td className="p-4">Billy Butcher</td>
-                <td className="p-4">Vistar - London</td>
+            <tbody className="text-center">
+              {myVisits
+                .slice(0, loadMore ? myVisits.length : 1)
+                .map((visit) => (
+                  <tr className="border-b  border-zinc-800">
+                    <td className="p-4 ">
+                      {new Date(visit.visitDate).toLocaleDateString("en-IN")}
+                    </td>
+                    <td className="p-4">{visit.host?.name}</td>
+                    <td className="p-4">{visit.company}</td>
 
-                <td className="p-4">
-                  <span className="rounded-full bg-black px-3 py-1 text-xs text-white">
-                    Confirmed
-                  </span>
-                </td>
+                    <td className="p-4">
+                      <span className=" bg-black tracking-widest  px-3 py-1 text-[13px] uppercase text-white">
+                        {visit.status}
+                      </span>
+                    </td>
 
-                <td className="p-4">
-                  <button className="cursor-pointer">
-                    <span class="material-symbols-outlined">more_vert</span>
-                  </button>
-                </td>
-              </tr>
+                    <td className="p-4">
+                      <button className="cursor-pointer">
+                        <span class="material-symbols-outlined">more_vert</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
 
-          <button className="bg-black mt-4 cursor-pointer text-white px-6 py-2 self-center">
-            Load More History
-          </button>
+          {loadMore ? (
+            <button
+              onClick={() => setLoadMore(false)}
+              className="bg-black mt-4 cursor-pointer text-white px-6 py-2 self-center"
+            >
+              Show Less History
+            </button>
+          ) : (
+            <button
+              onClick={() => setLoadMore(true)}
+              className="bg-black mt-4 cursor-pointer text-white px-6 py-2 self-center"
+            >
+              Load More History
+            </button>
+          )}
         </div>
       </div>
     </div>

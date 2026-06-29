@@ -42,7 +42,7 @@ const createVisit = async (req, res) => {
 
 const getMyVisits = async (req, res) => {
     try {
-        const visits = await Visit.find({
+        const myVisits = await Visit.find({
             visitor: req.user.id,
         })
 
@@ -52,7 +52,7 @@ const getMyVisits = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            visits,
+            visits : myVisits,
         })
     } catch (err) {
         return res.status(500).json({
