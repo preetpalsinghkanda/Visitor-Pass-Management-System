@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import VistorContext from "../../context/VistorContext";
 
 const EmployeeAllVisits = () => {
+  const { setTotalRequest } = useContext(VistorContext);
+  const navigate = useNavigate();
   const [visits, setVisits] = useState([]);
 
-  const [purpose, setPurpose] = useState(false);
+  // const [purpose, setPurpose] = useState(false);
   const [flipCard, setFlipCard] = useState(null);
 
   useEffect(() => {
     const getAllVisits = async () => {
+
+      try{
+
+     
       const res = await api.get("/employee/all-visits");
 
       setVisits(res.data.visits);
+      setTotalRequest(res.data.visits.length);}catch(err){
+          console.log(err.message)
+      }
     };
 
     getAllVisits();
@@ -21,7 +33,10 @@ const EmployeeAllVisits = () => {
     <div className="max-w-[90rem] flex flex-col  mx-auto h-[97vh]">
       <h1 className="text-4xl my-4 font-extrabold text-center">All VISITS</h1>
       <div className="flex justify-between my-6">
-        <button className=" cursor-pointer items-center justify-between flex gap-2 px-2">
+        <button
+          onClick={() => navigate("/employee/dashboard")}
+          className=" cursor-pointer items-center justify-between flex gap-2 px-2"
+        >
           <span class="material-symbols-outlined">chevron_backward</span>BACK
         </button>
         <p className="bg-black text-white px-3 self-end">SEARCH - CTRL + F</p>
@@ -100,8 +115,8 @@ const EmployeeAllVisits = () => {
               </div>
 
               <div className="border bg-black text-white  w-10 flex items-center justify-center">
-                <span className="rotate-270 whitespace-nowrap tracking-widest">
-                  PENDING
+                <span className="rotate-270 uppercase whitespace-nowrap tracking-widest">
+                  {visit.status}
                 </span>
               </div>
             </div>

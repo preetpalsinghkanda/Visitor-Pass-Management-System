@@ -1,13 +1,14 @@
 const Visit = require("../models/Visit")
 
-const getEmployeeVisits = async (req, res) => {
+const getEmployeePendingVisits = async (req, res) => {
     try {
 
         const visits = await Visit.find({
-            host: req.user.id
+            host: req.user.id,
+            status: "pending",
         })
 
-            .populate("visitor", "name email company visitTime visitDate phone photo")
+            .populate("visitor", "name email phone photo")
             .sort({ createdAt: -1 })
 
         return res.status(200).json({
@@ -116,5 +117,51 @@ const rejectVisit = async (req, res) => {
 
 }
 
+const getEmployeeRequests = async (req, res) => {
+    try {
 
-module.exports = { getEmployeeVisits, getAllEmployeeVisits, approveVisit, rejectVisit }
+        const total = await Visit.countDocuments({
+            host: req.user.id,
+        })
+
+        const pending = await Visit.countDocuments({
+            host: req.user.id,
+            status: "pending",
+        })
+
+        const approved = await Visit.countDocuments({
+            host: req.user.id,
+            status: "approved"
+        })
+
+        const rejected = await Visit.countDocuments({
+            host: req.user.id,
+            status: "rejected"
+        })
+
+        // const completed = await Visit.countDocuments({
+        //     host : req.user.id,
+        //     status : "completed"
+        // })
+
+        res.json({
+            total,
+            approved,
+            rejected,
+            pending,
+        })
+
+
+
+    } catch (err) {
+
+        res.status(500).json({
+            success: false,
+            message: err.message,
+        })
+
+    }
+}
+
+
+module.exports = { getEmployeePendingVisits, getEmployeeRequests, getAllEmployeeVisits, approveVisit, rejectVisit }

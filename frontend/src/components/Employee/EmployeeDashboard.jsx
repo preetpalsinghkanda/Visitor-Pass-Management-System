@@ -11,20 +11,42 @@ const EmployeeDashboard = () => {
 
   const [visits, setVisits] = useState([]);
 
-  const handleEmployeeVisits = async () => {
+  const [request, setRequest] = useState({
+    total: 0,
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+  });
+
+  // useEffect
+
+  useEffect(() => {
+    getRequest();
+    handleEmployeePendingVisits();
+  }, []);
+
+
+
+  // const FormateDate = ;
+
+  const getRequest = async () => {
     try {
-      const res = await api.get("/employee/visits");
+      const res = await api.get("/employee/request");
+
+      setRequest(res.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleEmployeePendingVisits = async () => {
+    try {
+      const res = await api.get("/employee/visits/pending");
       setVisits(res.data.visits);
     } catch (err) {
       toast.error(err.message || "Something went wrong");
     }
   };
-
-  useEffect(() => {
-    handleEmployeeVisits();
-  }, []);
-
-  // const FormateDate = ;
 
   const handleApproveVisit = async (id) => {
     try {
@@ -32,7 +54,8 @@ const EmployeeDashboard = () => {
 
       toast.success("VISIT APPROVED");
 
-      handleEmployeeVisits();
+      await handleEmployeePendingVisits();
+      await getRequest();
     } catch (err) {
       toast.error(err.message || "Something went wrong");
     }
@@ -42,7 +65,8 @@ const EmployeeDashboard = () => {
     try {
       await api.put(`/employee/reject/${id}`);
       toast.success("VISIT REJECTED");
-      handleEmployeeVisits();
+      await handleEmployeePendingVisits();
+      await getRequest();
     } catch (err) {
       toast.error(err.message);
     }
@@ -72,7 +96,7 @@ const EmployeeDashboard = () => {
               <h5>TOTAL REQUEST</h5>
             </div>
             <span className=" self-end text-5xl font-bold">
-              {visits.length}
+              {String(request.total).padStart(2, "0")}
             </span>
           </div>
 
@@ -81,7 +105,9 @@ const EmployeeDashboard = () => {
               <span className="material-symbols-outlined">person_check</span>
               <h5>APPROVED</h5>
             </div>
-            <span className=" self-end text-5xl font-bold">142</span>
+            <span className=" self-end text-5xl font-bold">
+              {String(request.approved).padStart(2, "0")}
+            </span>
           </div>
 
           <div className="border flex flex-col justify-between px-10 py-6">
@@ -89,7 +115,9 @@ const EmployeeDashboard = () => {
               <span className="material-symbols-outlined">person_cancel</span>
               <h5>REJECTED</h5>
             </div>
-            <span className=" self-end text-5xl font-bold">04</span>
+            <span className=" self-end text-5xl font-bold">
+              {String(request.rejected).padStart(2, "0")}
+            </span>
           </div>
 
           <div className="border flex flex-col justify-between px-10 py-6">
@@ -97,7 +125,9 @@ const EmployeeDashboard = () => {
               <span className="material-symbols-outlined">pending_actions</span>
               <h5>PENDING</h5>
             </div>
-            <span className=" self-end text-5xl font-bold">04</span>
+            <span className=" self-end text-5xl font-bold">
+              {String(request.pending).padStart(2, "0")}
+            </span>
           </div>
         </div>
 
@@ -105,7 +135,7 @@ const EmployeeDashboard = () => {
           <div className="flex justify-between items-center">
             <h4 className="text-3xl font-bold">Action Required</h4>
             <span className="border  bg-black text-white px-6 py-1">
-              02 - New request
+              {String(request.pending).padStart(2, "0")} - New request
             </span>
           </div>
 
@@ -130,7 +160,7 @@ const EmployeeDashboard = () => {
                     </div>
                     <div className="flex items-center justify-center gap-8">
                       <div className="flex items-center gap-2">
-                        <span class="material-symbols-outlined">schedule</span>
+                        <span className="material-symbols-outlined">schedule</span>
                         <span className="text-lg font-medium">
                           {new Date(
                             `2026-06-29T${visit.visitTime}`,
@@ -142,7 +172,7 @@ const EmployeeDashboard = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span class="material-symbols-outlined">
+                        <span className="material-symbols-outlined">
                           calendar_today
                         </span>
                         <span className="text-lg font-medium">

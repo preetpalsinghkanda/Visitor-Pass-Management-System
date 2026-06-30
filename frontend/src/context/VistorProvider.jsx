@@ -37,7 +37,6 @@ function VistorProvider({ children }) {
 
   const [employees, setEmployees] = useState([]);
 
-  
 
   // getEmployees by useffect
   useEffect(() => {
@@ -166,7 +165,6 @@ function VistorProvider({ children }) {
     return () => clearInterval(interval);
   }, []);
 
-
   //handle logout for all
   const handleLogout = async () => {
     try {
@@ -208,7 +206,6 @@ function VistorProvider({ children }) {
     <VistorContext.Provider
       value={{
         host,
-
         setHost,
         company,
         setCompany,
