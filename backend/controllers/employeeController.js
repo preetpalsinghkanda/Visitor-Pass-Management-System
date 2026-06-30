@@ -27,6 +27,31 @@ const getEmployeeVisits = async (req, res) => {
     }
 }
 
+const getAllEmployeeVisits = async (req, res) => {
+    try {
+
+        const visits = await Visit.find({
+            host: req.user.id,
+        })
+
+            .populate("visitor", "name email phone photo")
+            .sort({ createdAt: -1 })
+
+
+        return res.status(200).json({
+            success: true,
+            visits,
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+
+    }
+}
+
 const approveVisit = async (req, res) => {
 
     try {
@@ -92,4 +117,4 @@ const rejectVisit = async (req, res) => {
 }
 
 
-module.exports = { getEmployeeVisits, approveVisit, rejectVisit }
+module.exports = { getEmployeeVisits, getAllEmployeeVisits, approveVisit, rejectVisit }
