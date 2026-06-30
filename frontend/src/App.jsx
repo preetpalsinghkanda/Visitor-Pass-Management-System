@@ -24,6 +24,7 @@ import VistorContext from "./context/VistorContext";
 import About from "./components/About";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
+import EmployeeAllVisits from "./components/Employee/EmployeeAllVisits";
 
 const App = () => {
   const location = useLocation();
@@ -49,157 +50,157 @@ const App = () => {
     location.pathname === "/visitor/visits";
 
   return (
-    <>
-      <Toaster />
-
-      {showHomeNavbar && (
-        <Navbar
-          currentPage={heroPage}
-          setPage={setHeroPage}
-          navbar={homeNavbar}
-        />
-      )}
-
-      {showVisitorNavbar && (
-        <Navbar
-          currentPage={visitorPage}
-          setPage={setVisitorPage}
-          navbar={visitorNavbar}
-        />
-      )}
-
-      <Routes>
-        {/* home routes  */}
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <Industries />
-              <Success />
-              <Mission />
-              <Selfie />
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/about" element={<About />} />
-        <Route path="/experience" element={<Experience />} />
-
-        {/* visitor routes  */}
-
-        <Route
-          path="/visitor/signup"
-          element={
-            <GuestRoute>
-              <VisitorSignup />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/visitor/login"
-          element={
-            <GuestRoute>
-              <VisitorLogin />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/visitor/dashboard"
-          element={
-            <ProtectedRoute role={"visitor"}>
-              <VisitorDashBoard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/visitor/settings"
-          element={
-            <ProtectedRoute role={"visitor"}>
-              <VisitorSettings />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/visitor/pass"
-          element={
-            <ProtectedRoute role={"visitor"}>
-              <VisitorPass />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/visitor/visits"
-          element={
-            <ProtectedRoute role={"visitor"}>
-              {" "}
-              <VisitorVisits />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* employee routes   */}
-
-        <Route
-          path="/employee/dashboard"
-          element={
-            <ProtectedRoute role={"employee"}>
-              <EmployeeDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/employee/login"
-          element={
-            <GuestRoute>
-              {" "}
-              <EmployeeLogin />{" "}
-            </GuestRoute>
-          }
-        />
-
-        {/* security routes  */}
-        <Route
-          path="/security/dashboard"
-          element={
-            <ProtectedRoute role={"security"}>
-              <SecurityDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/security/login"
-          element={
-            <GuestRoute>
-              {" "}
-              <SecurityLogin />{" "}
-            </GuestRoute>
-          }
-        />
-
-        {/* admin  */}
-
-        <Route
-          path="/admin/login"
-          element={
-            <GuestRoute>
-              <AdminLogin />
-            </GuestRoute>
-          }
-        />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute role={"admin"}>
-              {/* <AdminLogin />    should be admin dashboard */}
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </>
     // <>
-    // <Loading/>
+    //   <Toaster />
+
+    //   {showHomeNavbar && (
+    //     <Navbar
+    //       currentPage={heroPage}
+    //       setPage={setHeroPage}
+    //       navbar={homeNavbar}
+    //     />
+    //   )}
+
+    //   {showVisitorNavbar && (
+    //     <Navbar
+    //       currentPage={visitorPage}
+    //       setPage={setVisitorPage}
+    //       navbar={visitorNavbar}
+    //     />
+    //   )}
+
+    //   <Routes>
+    //     {/* home routes  */}
+    //     <Route
+    //       path="/"
+    //       element={
+    //         <>
+    //           <Hero />
+    //           <Industries />
+    //           <Success />
+    //           <Mission />
+    //           <Selfie />
+    //           <Footer />
+    //         </>
+    //       }
+    //     />
+    //     <Route path="/about" element={<About />} />
+    //     <Route path="/experience" element={<Experience />} />
+
+    //     {/* visitor routes  */}
+
+    //     <Route
+    //       path="/visitor/signup"
+    //       element={
+    //         <GuestRoute>
+    //           <VisitorSignup />
+    //         </GuestRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/visitor/login"
+    //       element={
+    //         <GuestRoute>
+    //           <VisitorLogin />
+    //         </GuestRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/visitor/dashboard"
+    //       element={
+    //         <ProtectedRoute role={"visitor"}>
+    //           <VisitorDashBoard />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/visitor/settings"
+    //       element={
+    //         <ProtectedRoute role={"visitor"}>
+    //           <VisitorSettings />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/visitor/pass"
+    //       element={
+    //         <ProtectedRoute role={"visitor"}>
+    //           <VisitorPass />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/visitor/visits"
+    //       element={
+    //         <ProtectedRoute role={"visitor"}>
+    //           {" "}
+    //           <VisitorVisits />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+
+    //     {/* employee routes   */}
+
+    //     <Route
+    //       path="/employee/dashboard"
+    //       element={
+    //         <ProtectedRoute role={"employee"}>
+    //           <EmployeeDashboard />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/employee/login"
+    //       element={
+    //         <GuestRoute>
+    //           {" "}
+    //           <EmployeeLogin />{" "}
+    //         </GuestRoute>
+    //       }
+    //     />
+
+    //     {/* security routes  */}
+    //     <Route
+    //       path="/security/dashboard"
+    //       element={
+    //         <ProtectedRoute role={"security"}>
+    //           <SecurityDashboard />
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/security/login"
+    //       element={
+    //         <GuestRoute>
+    //           {" "}
+    //           <SecurityLogin />{" "}
+    //         </GuestRoute>
+    //       }
+    //     />
+
+    //     {/* admin  */}
+
+    //     <Route
+    //       path="/admin/login"
+    //       element={
+    //         <GuestRoute>
+    //           <AdminLogin />
+    //         </GuestRoute>
+    //       }
+    //     />
+    //     <Route
+    //       path="/admin/dashboard"
+    //       element={
+    //         <ProtectedRoute role={"admin"}>
+    //           {/* <AdminLogin />    should be admin dashboard */}
+    //         </ProtectedRoute>
+    //       }
+    //     />
+    //   </Routes>
     // </>
+    <>
+    <EmployeeAllVisits/>
+    </>
   );
 };
 
