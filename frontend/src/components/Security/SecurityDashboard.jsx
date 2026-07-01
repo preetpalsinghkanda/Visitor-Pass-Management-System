@@ -1,11 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import VistorContext from "../../context/VistorContext";
+import toast from "react-hot-toast";
+import SecurityScannedVisit from "./SecurityScannedVisit";
 
 const SecurityDashboard = () => {
   const { date, time } = useContext(VistorContext);
 
+  const [qrCode, setQrCode] = useState("");
+  const [scanResult, setScanResult] = useState(null);
+
+  const handleScan = async () => {
+    try {
+      const res = await api.put("/security/scan", {
+        qrCode,
+      });
+
+      toast.success(res.data.message || "CHECKED IN SUCCESSFULLY");
+
+      setScanResult(res.data.visit);
+    } catch (err) {
+      toast.error(err.message || "Scan Failed :(");
+    }
+  };
+
   return (
-    <div className="max-w-[90rem] h-screen  mx-auto justify-center flex">
+    <div className="max-w-[90rem]   mx-auto justify-center flex">
       <div className=" flex  px-4 py-10 flex-col gap-8 items-center">
         <div className="flex flex-col justify-center gap-2 items-center">
           <h3 className="text-4xl font-extrabold">QR Scanner</h3>
@@ -33,16 +52,25 @@ const SecurityDashboard = () => {
 
           <div className="flex flex-col gap-2">
             <input
+              value={qrCode}
+              onChange={(x) => setQrCode(x.target.value)}
               type="text"
               className="border outline-0 px-6 py-2"
               placeholder="VISTRA-1-AFKYT..."
             />
-            <button className="bg-black cursor-pointer text-white py-2 ">
+            <button
+              onClick={handleScan}
+              className="bg-black cursor-pointer text-white py-2 "
+            >
               MANUAL TRIGGER
             </button>
           </div>
         </div>
       </div>
+
+      {/* {<SecurityScannedVisit/>} */}
+
+
     </div>
   );
 };
