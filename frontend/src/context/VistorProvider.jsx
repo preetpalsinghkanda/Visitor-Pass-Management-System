@@ -222,6 +222,7 @@ function VistorProvider({ children }) {
         heroPage,
         setHeroPage,
         date,
+        currentUser,
         time,
         user,
         setUser,

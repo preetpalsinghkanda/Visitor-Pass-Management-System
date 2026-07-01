@@ -39,6 +39,8 @@ const visitSchema = new mongoose.Schema({
             "approved",
             "rejected",
             "completed",
+            "checked-in",
+            "checked-out"
 
         ],
         default: "pending"

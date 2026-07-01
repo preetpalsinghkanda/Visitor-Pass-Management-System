@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 const VisitorLogin = () => {
   const navigate = useNavigate();
-  const { email, pass, setEmail, setPass } = useContext(VistorContext);
+  const { email, pass, setEmail, setPass, currentUser } =
+    useContext(VistorContext);
 
   const handleLogin = async () => {
     try {
@@ -21,7 +22,7 @@ const VisitorLogin = () => {
         api.post("/users/login", {
           email,
           password: pass,
-          role: "visitor" ,
+          role: "visitor",
         }),
         {
           loading: "Logging in...",
@@ -30,6 +31,7 @@ const VisitorLogin = () => {
         },
       );
 
+      await currentUser();
       navigate("/visitor/dashboard");
     } catch (err) {
       console.log(err.message || "Something went wrong");

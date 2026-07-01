@@ -4,8 +4,10 @@ import VistorContext from "../../context/VistorContext";
 import { useEffect } from "react";
 import api from "../../services/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeDashboard = () => {
+  const navigate = useNavigate();
   const { handleLogout } = useContext(VistorContext);
   const [purposeModel, setPurposeModel] = useState(null);
 
@@ -24,8 +26,6 @@ const EmployeeDashboard = () => {
     getRequest();
     handleEmployeePendingVisits();
   }, []);
-
-
 
   // const FormateDate = ;
 
@@ -64,6 +64,7 @@ const EmployeeDashboard = () => {
   const handleRejectVisit = async (id) => {
     try {
       await api.put(`/employee/reject/${id}`);
+
       toast.success("VISIT REJECTED");
       await handleEmployeePendingVisits();
       await getRequest();
@@ -73,7 +74,7 @@ const EmployeeDashboard = () => {
   };
 
   return (
-    <div className="max-w-[90rem] mx-auto  ">
+    <div className="max-w-[90rem] mx-auto  my-3">
       <div>
         <div className="flex justify-between items-center">
           <div className="">
@@ -131,7 +132,7 @@ const EmployeeDashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6  ">
           <div className="flex justify-between items-center">
             <h4 className="text-3xl font-bold">Action Required</h4>
             <span className="border  bg-black text-white px-6 py-1">
@@ -139,7 +140,7 @@ const EmployeeDashboard = () => {
             </span>
           </div>
 
-          <div className=" flex flex-col gap-2">
+          <div className=" flex flex-col gap-2    ">
             {visits.map((visit) => (
               <div className=" border  justify-between px-10 py-6 flex items-center">
                 <div className="flex gap-6 items-center">
@@ -160,7 +161,9 @@ const EmployeeDashboard = () => {
                     </div>
                     <div className="flex items-center justify-center gap-8">
                       <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined">schedule</span>
+                        <span className="material-symbols-outlined">
+                          schedule
+                        </span>
                         <span className="text-lg font-medium">
                           {new Date(
                             `2026-06-29T${visit.visitTime}`,
@@ -221,6 +224,19 @@ const EmployeeDashboard = () => {
                 </div>
               </div>
             ))}
+
+            <button
+              onClick={() => navigate("/employee/all-visits")}
+              className="border items-center flex gap-2 cursor-pointer w-fit self-center px-6 bg-black text-white py-1"
+            >
+              VIEW ALL VISITS{" "}
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "20px" }}
+              >
+                east
+              </span>
+            </button>
           </div>
         </div>
       </div>
