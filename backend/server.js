@@ -11,7 +11,7 @@ const adminRoutes = require('./routes/adminRoutes')
 const dashboardRoutes = require("./routes/dashboardRoutes")
 const visitRoutes = require("./routes/visitRoutes")
 const employeeRoutes = require('./routes/employeeRoutes');
-const securityRoutes = require("./controllers/securityController");
+const securityRoutes = require("./routes/securityRoutes");
 
 app.use(cors({
     origin: "http://localhost:5173",

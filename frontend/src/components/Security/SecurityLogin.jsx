@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
+import api from "../../services/api";
+import toast from "react-hot-toast";
+import VistorContext from "../../context/VistorContext";
+import { useNavigate } from "react-router-dom";
 
 const SecurityLogin = () => {
+  const navigate = useNavigate();
+
+  const { email, setEmail, pass, setPass } = useContext(VistorContext);
+
+  const handleSecurityLogin = async () => {
+    try {
+      if (!email || !pass) {
+        return toast.error("BOTH INPUTS ARE REQUIRED");
+      }
+
+      await toast.promise(
+        api.post("/users/login", {
+          email,
+          password: pass,
+          role: "security",
+        }),
+
+        {
+          loading: "LOGGING IN TERMINAL...",
+          success: "WELCOME HACKER",
+          error: "LOGIN FAILED (CONTACT ADMIN FOR MORE INFO)",
+        },
+      );
+
+      navigate("/security/dashboard");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <div className=" max-w-[90rem] mx-auto h-screen justify-center items-center flex-col flex">
       <div className=" max-w-[30rem] border py-15 h-fit justify-center flex flex-col items-center text-center px-15  ">
@@ -15,6 +49,8 @@ const SecurityLogin = () => {
             <div className="border px-5 py-3 flex gap-3">
               <span class="material-symbols-outlined">badge</span>
               <input
+              value={email}
+              onChange={(x)=>setEmail(x.target.value)}
                 placeholder="VSEC0000"
                 type="text"
                 className=" text-lg w-full outline-0 border-0"
@@ -27,6 +63,8 @@ const SecurityLogin = () => {
             <div className="border px-5 py-3 flex gap-3">
               <span class="material-symbols-outlined">lock_open</span>
               <input
+              value={pass}
+              onChange={(x)=>setPass(x.target.value)}
                 placeholder="******"
                 type="text"
                 className="text-lg w-full outline-0 border-0"
@@ -34,7 +72,7 @@ const SecurityLogin = () => {
             </div>
           </div>
         </div>
-        <button className="flex items-center gap-2 justify-center border w-full py-4 bg-[#000000dd] text-white">
+        <button onClick={handleSecurityLogin} className="flex items-center gap-2 justify-center border w-full py-4 bg-[#000000dd] text-white">
           UNLOCK GATE{" "}
           <span class="material-symbols-outlined">arrow_right_alt</span>
         </button>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SecurityScannedVisit = () => {
+const SecurityScannedVisit = ({ visit }) => {
   return (
     <div className="fixed  flex-col inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-10">
       <div className=" sm:min-w-120  flex flex-col gap-6">
@@ -9,7 +9,7 @@ const SecurityScannedVisit = () => {
             <div className="h-45 w-35">
               <img
                 className="h-full w-full object-cover"
-                src="https://i.pinimg.com/736x/c1/0c/b1/c10cb152fe217e6645081bdc395787af.jpg"
+                src={visit.visitor.photo}
                 alt=""
               />
             </div>

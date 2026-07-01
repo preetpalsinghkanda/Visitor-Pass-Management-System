@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import VistorContext from "../../context/VistorContext";
 import toast from "react-hot-toast";
+import api from "../../services/api";
 import SecurityScannedVisit from "./SecurityScannedVisit";
 
 const SecurityDashboard = () => {
@@ -68,9 +69,7 @@ const SecurityDashboard = () => {
         </div>
       </div>
 
-      {/* {<SecurityScannedVisit/>} */}
-
-
+      {scanResult && <SecurityScannedVisit visit={scanResult} />}
     </div>
   );
 };

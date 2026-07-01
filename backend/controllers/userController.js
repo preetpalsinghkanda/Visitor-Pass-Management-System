@@ -62,7 +62,7 @@ const loginUser = async (req, res) => {
         const { email, password , role } = req.body;
 
         // inputs check
-        if (!email || !password) {
+         if (!email || !password) {
 
             return res.status(400).json({
                 success: false,
