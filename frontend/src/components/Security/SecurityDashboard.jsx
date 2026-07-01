@@ -5,7 +5,7 @@ import api from "../../services/api";
 import SecurityScannedVisit from "./SecurityScannedVisit";
 
 const SecurityDashboard = () => {
-  const { date, time } = useContext(VistorContext);
+  const { date, time, handleLogout } = useContext(VistorContext);
 
   const [qrCode, setQrCode] = useState("");
   const [scanResult, setScanResult] = useState(null);
@@ -25,7 +25,7 @@ const SecurityDashboard = () => {
   };
 
   return (
-    <div className="max-w-[90rem]   mx-auto justify-center flex">
+    <div className="max-w-[90rem]  flex-col  mx-auto justify-center flex">
       <div className=" flex  px-4 py-10 flex-col gap-8 items-center">
         <div className="flex flex-col justify-center gap-2 items-center">
           <h3 className="text-4xl font-extrabold">QR Scanner</h3>
@@ -68,6 +68,13 @@ const SecurityDashboard = () => {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={handleLogout}
+        className="text-[red] font-extrabold cursor-pointer w-fit mx-auto px-6"
+      >
+        LOGOUT
+      </button>
 
       {scanResult && <SecurityScannedVisit visit={scanResult} />}
     </div>

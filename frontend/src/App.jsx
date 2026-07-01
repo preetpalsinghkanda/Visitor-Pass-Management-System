@@ -181,8 +181,7 @@ const App = () => {
           path="/security/login"
           element={
             <GuestRoute>
-              {" "}
-              <SecurityLogin />{" "}
+              <SecurityLogin />
             </GuestRoute>
           }
         />

@@ -49,8 +49,8 @@ const SecurityLogin = () => {
             <div className="border px-5 py-3 flex gap-3">
               <span class="material-symbols-outlined">badge</span>
               <input
-              value={email}
-              onChange={(x)=>setEmail(x.target.value)}
+                value={email}
+                onChange={(x) => setEmail(x.target.value)}
                 placeholder="VSEC0000"
                 type="text"
                 className=" text-lg w-full outline-0 border-0"
@@ -63,8 +63,8 @@ const SecurityLogin = () => {
             <div className="border px-5 py-3 flex gap-3">
               <span class="material-symbols-outlined">lock_open</span>
               <input
-              value={pass}
-              onChange={(x)=>setPass(x.target.value)}
+                value={pass}
+                onChange={(x) => setPass(x.target.value)}
                 placeholder="******"
                 type="text"
                 className="text-lg w-full outline-0 border-0"
@@ -72,7 +72,10 @@ const SecurityLogin = () => {
             </div>
           </div>
         </div>
-        <button onClick={handleSecurityLogin} className="flex items-center gap-2 justify-center border w-full py-4 bg-[#000000dd] text-white">
+        <button
+          onClick={handleSecurityLogin}
+          className="flex items-center gap-2 justify-center border w-full py-4 bg-[#000000dd] text-white"
+        >
           UNLOCK GATE{" "}
           <span class="material-symbols-outlined">arrow_right_alt</span>
         </button>
