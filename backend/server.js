@@ -10,7 +10,8 @@ const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require('./routes/adminRoutes')
 const dashboardRoutes = require("./routes/dashboardRoutes")
 const visitRoutes = require("./routes/visitRoutes")
-const employeeRoutes = require('./routes/employeeRoutes')
+const employeeRoutes = require('./routes/employeeRoutes');
+const securityRoutes = require("./controllers/securityController");
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -31,7 +32,8 @@ app.use("/dashboard", dashboardRoutes)
 
 app.use('/visits', visitRoutes)
 
-app.use('/employee' , employeeRoutes)
+app.use('/employee', employeeRoutes)
+app.use('/security', securityRoutes)
 
 
 
