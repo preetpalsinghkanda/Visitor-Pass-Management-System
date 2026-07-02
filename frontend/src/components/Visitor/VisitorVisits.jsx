@@ -27,10 +27,11 @@ const VisitorVisits = () => {
     getMyVisits();
   }, []);
 
-  const handleQrPass = async () => {
+  const handleQrPass = async (visitId) => {
     try {
-      const res = await api.get("/visits/pass");
+      const res = await api.get(`/visits/pass/${visitId}`);
       setSelectedVisit(res.data.visit);
+      setOpenMenu(null)
     } catch (err) {
       toast.error(err.message || "NO PASS");
     }
@@ -189,7 +190,7 @@ const VisitorVisits = () => {
 
                       {openMenu === visit._id && (
                         <div className="absolute -right-5 -bottom-3 flex flex-col px-5 py-5 justify-center items-center  bg-black gap-2">
-                          <button onClick={handleQrPass} className="cursor-pointer w-full font-bold bg-white text-black">
+                          <button onClick={()=>handleQrPass(visit._id)} className="cursor-pointer w-full font-bold bg-white text-black">
                             VIEW QR
                           </button>
 

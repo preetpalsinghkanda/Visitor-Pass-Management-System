@@ -10,7 +10,7 @@ router.post("/", authMiddleware, createVisit)
 
 router.get("/my", authMiddleware, getMyVisits)
 
-router.get("/pass", authMiddleware, getVisitPass)
+router.get("/pass/:id", authMiddleware, getVisitPass)
 
 
 

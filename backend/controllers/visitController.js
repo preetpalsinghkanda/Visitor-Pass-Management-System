@@ -1,4 +1,7 @@
 const Visit = require("../models/Visit")
+const QRCode = require("qrcode")
+const crypto = require("crypto")
+
 
 
 
@@ -66,6 +69,7 @@ const getVisitPass = async (req, res) => {
     try {
 
         const visit = await Visit.findOne({
+            _id: req.params.id,
             visitor: req.user.id,
             status: {
                 $in: ["approved", "checked-in"],
@@ -94,4 +98,4 @@ const getVisitPass = async (req, res) => {
     }
 }
 
-module.exports = { createVisit, getMyVisits , getVisitPass }
+module.exports = { createVisit, getMyVisits, getVisitPass }
