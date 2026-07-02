@@ -45,7 +45,13 @@ const visitSchema = new mongoose.Schema({
         ],
         default: "pending"
     },
-    qrCode: String,
+    qrCode: {
+        type: String,
+    },
+
+    qrImage: {
+        type: String,
+    }
 
 }, {
     timestamps: true,

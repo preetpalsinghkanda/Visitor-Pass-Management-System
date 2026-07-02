@@ -4,10 +4,14 @@ import { useContext, useState } from "react";
 import VistorContext from "../../context/VistorContext";
 import api from "../../services/api";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const VisitorVisits = () => {
   const [myVisits, setMyVisits] = useState([]);
   const [loadMore, setLoadMore] = useState(false);
+  const [selectedVisit, setSelectedVisit] = useState(null);
+
+  const [openMenu, setOpenMenu] = useState(null);
 
   useEffect(() => {
     const getMyVisits = async () => {
@@ -23,6 +27,15 @@ const VisitorVisits = () => {
     getMyVisits();
   }, []);
 
+  const handleQrPass = async () => {
+    try {
+      const res = await api.get("/visits/pass");
+      setSelectedVisit(res.data.visit);
+    } catch (err) {
+      toast.error(err.message || "NO PASS");
+    }
+  };
+
   return (
     <div className="max-w-[90rem] mx-auto  flex flex-col gap-6">
       <div>
@@ -35,6 +48,7 @@ const VisitorVisits = () => {
       <div className=" flex justify-between">
         <div>
           <h4 className="text-3xl font-bold">Upcoming Visits</h4>
+
           <div className="flex gap-6">
             <div className="">
               <div className="border  px-10 py-6  my-6">
@@ -77,6 +91,7 @@ const VisitorVisits = () => {
                 </div>
               </div>
             </div>
+
             <div className="">
               <div className="border  px-10 py-6  my-6">
                 <div className="flex items-center gap-6 justify-between">
@@ -129,7 +144,7 @@ const VisitorVisits = () => {
         </div>
       </div>
 
-      <div className="flex  flex-col">
+      <div className="flex   flex-col">
         <h5 className="text-3xl font-bold">Visit History</h5>
         <div className=" flex flex-col">
           <table className="w-full table-fixed  border-zinc-800 text-left">
@@ -160,10 +175,29 @@ const VisitorVisits = () => {
                       </span>
                     </td>
 
-                    <td className="p-4">
-                      <button className="cursor-pointer">
+                    <td className="p-4 relative">
+                      <button
+                        onClick={() =>
+                          setOpenMenu(openMenu === visit._id ? null : visit._id)
+                        }
+                        className="cursor-pointer"
+                      >
                         <span class="material-symbols-outlined">more_vert</span>
                       </button>
+
+                      {/* menu box  */}
+
+                      {openMenu === visit._id && (
+                        <div className="absolute -right-5 -bottom-3 flex flex-col px-5 py-5 justify-center items-center  bg-black gap-2">
+                          <button onClick={handleQrPass} className="cursor-pointer w-full font-bold bg-white text-black">
+                            VIEW QR
+                          </button>
+
+                          <button className=" cursor-pointer w-full px-3 font-bold bg-white text-black">
+                            SHARE QR
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -187,6 +221,30 @@ const VisitorVisits = () => {
           )}
         </div>
       </div>
+
+      {/* model box */}
+
+      {selectedVisit && (
+        <div className="fixed inset-0 flex-col bg-black/50 backdrop-blur-sm flex items-center justify-center z-10">
+          <div className="bg-white h-105">
+            <div className="bg-white  w-100 px-10 py-3">
+              <img
+                className="h-full w-full object-fit py-4 "
+                src={selectedVisit.qrImage}
+                alt=""
+              />
+            </div>
+            <p className="text-center">SHOW QR AT THE SECURITY GATE</p>
+          </div>
+
+          <button
+            onClick={() => setSelectedVisit(null)}
+            className="text-[white] cursor-pointer bg-black px-6 my-5"
+          >
+            CLOSE
+          </button>
+        </div>
+      )}
     </div>
   );
 };

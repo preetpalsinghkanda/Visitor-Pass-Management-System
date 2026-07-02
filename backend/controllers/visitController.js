@@ -52,7 +52,7 @@ const getMyVisits = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            visits : myVisits,
+            visits: myVisits,
         })
     } catch (err) {
         return res.status(500).json({
@@ -62,4 +62,36 @@ const getMyVisits = async (req, res) => {
     }
 }
 
-module.exports = { createVisit, getMyVisits }
+const getVisitPass = async (req, res) => {
+    try {
+
+        const visit = await Visit.findOne({
+            visitor: req.user.id,
+            status: {
+                $in: ["approved", "checked-in"],
+            },
+        }).populate("host", "name")
+
+
+        if (!visit) {
+            return res.status(404).json({
+                message: "NO PASS OR PASS INVALID",
+                success: false,
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            visit,
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message,
+            success: false,
+        })
+
+    }
+}
+
+module.exports = { createVisit, getMyVisits , getVisitPass }

@@ -1,5 +1,6 @@
 const Visit = require("../models/Visit")
 const crypto = require("crypto")
+const QRCode = require("qrcode")
 
 const getEmployeePendingVisits = async (req, res) => {
     try {
@@ -75,7 +76,9 @@ const approveVisit = async (req, res) => {
         //QR CODE GEN
 
         if (!visit.qrCode) {
-            visit.qrCode = `VSITRA${crypto.randomUUID()}`
+            visit.qrCode = `VISTRA${crypto.randomUUID()}`
+
+            visit.qrImage = await QRCode.toDataURL(visit.qrCode)
         }
 
         await visit.save()
