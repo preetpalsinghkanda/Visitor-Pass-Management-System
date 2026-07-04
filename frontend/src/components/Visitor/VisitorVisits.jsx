@@ -5,16 +5,6 @@ import VistorContext from "../../context/VistorContext";
 import api from "../../services/api";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import {
-  WhatsappShareButton,
-  EmailShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappIcon,
-  EmailIcon,
-  TelegramIcon,
-  TwitterIcon,
-} from "react-share";
 
 const VisitorVisits = () => {
   const [myVisits, setMyVisits] = useState([]);
@@ -27,13 +17,6 @@ const VisitorVisits = () => {
 
   const shareUrl = selectedVisit?.qrImage;
   const qrTitle = "MY VISIT QR PASS :)";
-
-  const downloadQR = () => {
-    const a = document.createElement("a");
-    a.href = selectedVisit.qrImage;
-    a.download = "VISITOR-PASSSS.png";
-    a.click();
-  };
 
   useEffect(() => {
     const getMyVisits = async () => {
@@ -59,16 +42,19 @@ const VisitorVisits = () => {
     }
   };
 
-  const downloadQR = async (visitId)=>{
-    try{
+  const downloadQR = async (visitId) => {
+    try {
+      const res = await api.get(`/visits/pass/${visitId}`);
+      const a = document.createElement("a");
+      a.href = res.data.visit.qrImage;
+      a.download = "VISITOR-PASSSS.png";
+      a.click();
 
-      const res = await api.get(`/visit/pass/${visitId}`)
-      
-
-    }catch(err){
-      toast.error("FAILED TO FETCH QR")
+      setOpenMenu(null);
+    } catch (err) {
+      toast.error("FAILED TO FETCH QR");
     }
-  }
+  };
 
   return (
     <div className="max-w-[90rem] mx-auto  flex flex-col gap-6">
@@ -231,10 +217,7 @@ const VisitorVisits = () => {
                           </button>
 
                           <button
-                            onClick={async () => {
-                              await handleQrPass(visit._id);
-                              setSelectedVisitShare(true);
-                            }}
+                            onClick={() => downloadQR(visit._id)}
                             className=" cursor-pointer w-full px-3 font-bold bg-white text-black"
                           >
                             DOWNLOAD QR
