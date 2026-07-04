@@ -21,12 +21,19 @@ const VisitorVisits = () => {
   const [loadMore, setLoadMore] = useState(false);
   const [selectedVisit, setSelectedVisit] = useState(null);
 
-  const [selectedVisitShare, setSelectedVisitShare] = useState(false);
+  // const [selectedVisitShare, setSelectedVisitShare] = useState(false);
 
   const [openMenu, setOpenMenu] = useState(null);
 
   const shareUrl = selectedVisit?.qrImage;
   const qrTitle = "MY VISIT QR PASS :)";
+
+  const downloadQR = () => {
+    const a = document.createElement("a");
+    a.href = selectedVisit.qrImage;
+    a.download = "VISITOR-PASSSS.png";
+    a.click();
+  };
 
   useEffect(() => {
     const getMyVisits = async () => {
@@ -51,6 +58,17 @@ const VisitorVisits = () => {
       toast.error(err.message || "NO PASS");
     }
   };
+
+  const downloadQR = async (visitId)=>{
+    try{
+
+      const res = await api.get(`/visit/pass/${visitId}`)
+      
+
+    }catch(err){
+      toast.error("FAILED TO FETCH QR")
+    }
+  }
 
   return (
     <div className="max-w-[90rem] mx-auto  flex flex-col gap-6">
@@ -219,7 +237,7 @@ const VisitorVisits = () => {
                             }}
                             className=" cursor-pointer w-full px-3 font-bold bg-white text-black"
                           >
-                            SHARE QR
+                            DOWNLOAD QR
                           </button>
                         </div>
                       )}
@@ -270,36 +288,6 @@ const VisitorVisits = () => {
           >
             CLOSE
           </button>
-        </div>
-      )}
-
-      {selectedVisitShare && (
-        <div>
-          <div className="bg-white  w-50 px-10 py-3">
-            <img
-              className="h-full w-full object-fit py-4 "
-              src={selectedVisit?.qrImage}
-              alt=""
-            />
-          </div>
-
-          <div className="flex gap-3 justify-center ">
-            <WhatsappShareButton url={shareUrl}>
-              <WhatsappIcon size={60} round />
-            </WhatsappShareButton>
-
-            <EmailShareButton url={shareUrl}>
-              <EmailIcon size={60} round />
-            </EmailShareButton>
-
-            <TelegramShareButton url={shareUrl}>
-              <TelegramIcon size={60} round />
-            </TelegramShareButton>
-
-            <TwitterShareButton url={shareUrl}>
-              <TwitterIcon size={60} round />
-            </TwitterShareButton>
-          </div>
         </div>
       )}
     </div>
