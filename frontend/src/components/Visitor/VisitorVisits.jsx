@@ -5,13 +5,28 @@ import VistorContext from "../../context/VistorContext";
 import api from "../../services/api";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import {
+  WhatsappShareButton,
+  EmailShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappIcon,
+  EmailIcon,
+  TelegramIcon,
+  TwitterIcon,
+} from "react-share";
 
 const VisitorVisits = () => {
   const [myVisits, setMyVisits] = useState([]);
   const [loadMore, setLoadMore] = useState(false);
   const [selectedVisit, setSelectedVisit] = useState(null);
 
+  const [selectedVisitShare, setSelectedVisitShare] = useState(false);
+
   const [openMenu, setOpenMenu] = useState(null);
+
+  const shareUrl = selectedVisit?.qrImage;
+  const qrTitle = "MY VISIT QR PASS :)";
 
   useEffect(() => {
     const getMyVisits = async () => {
@@ -31,7 +46,7 @@ const VisitorVisits = () => {
     try {
       const res = await api.get(`/visits/pass/${visitId}`);
       setSelectedVisit(res.data.visit);
-      setOpenMenu(null)
+      setOpenMenu(null);
     } catch (err) {
       toast.error(err.message || "NO PASS");
     }
@@ -50,7 +65,7 @@ const VisitorVisits = () => {
         <div>
           <h4 className="text-3xl font-bold">Upcoming Visits</h4>
 
-          <div className="flex gap-6">
+          {/* <div className="flex gap-6">
             <div className="">
               <div className="border  px-10 py-6  my-6">
                 <div className="flex items-center gap-6 justify-between">
@@ -134,7 +149,7 @@ const VisitorVisits = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="mr-25">
           <img
@@ -190,11 +205,20 @@ const VisitorVisits = () => {
 
                       {openMenu === visit._id && (
                         <div className="absolute -right-5 -bottom-3 flex flex-col px-5 py-5 justify-center items-center  bg-black gap-2">
-                          <button onClick={()=>handleQrPass(visit._id)} className="cursor-pointer w-full font-bold bg-white text-black">
+                          <button
+                            onClick={() => handleQrPass(visit._id)}
+                            className="cursor-pointer w-full font-bold bg-white text-black"
+                          >
                             VIEW QR
                           </button>
 
-                          <button className=" cursor-pointer w-full px-3 font-bold bg-white text-black">
+                          <button
+                            onClick={async () => {
+                              await handleQrPass(visit._id);
+                              setSelectedVisitShare(true);
+                            }}
+                            className=" cursor-pointer w-full px-3 font-bold bg-white text-black"
+                          >
                             SHARE QR
                           </button>
                         </div>
@@ -204,6 +228,8 @@ const VisitorVisits = () => {
                 ))}
             </tbody>
           </table>
+
+          {/* load more or less */}
 
           {loadMore ? (
             <button
@@ -244,6 +270,36 @@ const VisitorVisits = () => {
           >
             CLOSE
           </button>
+        </div>
+      )}
+
+      {selectedVisitShare && (
+        <div>
+          <div className="bg-white  w-50 px-10 py-3">
+            <img
+              className="h-full w-full object-fit py-4 "
+              src={selectedVisit?.qrImage}
+              alt=""
+            />
+          </div>
+
+          <div className="flex gap-3 justify-center ">
+            <WhatsappShareButton url={shareUrl}>
+              <WhatsappIcon size={60} round />
+            </WhatsappShareButton>
+
+            <EmailShareButton url={shareUrl}>
+              <EmailIcon size={60} round />
+            </EmailShareButton>
+
+            <TelegramShareButton url={shareUrl}>
+              <TelegramIcon size={60} round />
+            </TelegramShareButton>
+
+            <TwitterShareButton url={shareUrl}>
+              <TwitterIcon size={60} round />
+            </TwitterShareButton>
+          </div>
         </div>
       )}
     </div>
