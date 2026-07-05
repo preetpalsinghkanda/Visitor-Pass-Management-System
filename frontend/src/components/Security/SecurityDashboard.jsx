@@ -9,9 +9,11 @@ const SecurityDashboard = () => {
 
   const [qrCode, setQrCode] = useState("");
   const [scanResult, setScanResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleScan = async () => {
     try {
+      setLoading(true);
       const res = await api.put("/security/scan", {
         qrCode,
       });
@@ -21,8 +23,49 @@ const SecurityDashboard = () => {
       setScanResult(res.data.visit);
     } catch (err) {
       toast.error(err.message || "Scan Failed :(");
+    } finally {
+      setLoading(false);
     }
   };
+
+
+  const handleApproveEntry = async(id) =>{
+    try{
+      const res = await api.put(`/security/checkin/${id}`)
+
+      toast.success(res.data.message)
+
+      setScanResult(null)
+      setQrCode("")
+
+    }catch(err){
+
+      toast.error(err.message || "SOMETHING WENT WRONG")
+
+    }
+  }
+
+  const handleRejectEntry = async (id) =>{
+    try{
+      const res = await api.put(`/security/reject/${id}`)
+      toast.success(res.data.message)
+      setScanResult(null)
+      setQrCode("")
+
+    }catch(err){
+
+      toast.error(err.message || "SOMETHING WENT WRONG")
+
+    }
+  }
+
+  const handleCheckout = async(id) =>{
+    try{
+
+    }catch(){
+
+    }
+  }
 
   return (
     <div className="max-w-[90rem]  flex-col  mx-auto justify-center flex">
@@ -76,7 +119,16 @@ const SecurityDashboard = () => {
         LOGOUT
       </button>
 
-      {scanResult && <SecurityScannedVisit visit={scanResult} />}
+      {scanResult && (
+        <SecurityScannedVisit
+          visit={scanResult}
+          onClose={() => setScanResult(null)}
+          onApprove = {handleApproveEntry}
+          onReject = {handleRejectEntry}
+          onCheckout={handleCheckout}
+
+        />
+      )}
     </div>
   );
 };
