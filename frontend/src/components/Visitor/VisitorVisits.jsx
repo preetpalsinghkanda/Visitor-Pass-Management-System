@@ -38,7 +38,7 @@ const VisitorVisits = () => {
       setSelectedVisit(res.data.visit);
       setOpenMenu(null);
     } catch (err) {
-      toast.error(err.message || "NO PASS");
+      toast.error(err.response.data.message || "NO PASS");
     }
   };
 

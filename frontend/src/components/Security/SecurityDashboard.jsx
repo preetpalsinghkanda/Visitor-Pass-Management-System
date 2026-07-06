@@ -1,24 +1,50 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import VistorContext from "../../context/VistorContext";
 import toast from "react-hot-toast";
 import api from "../../services/api";
 import SecurityScannedVisit from "./SecurityScannedVisit";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 const SecurityDashboard = () => {
   const { date, time, handleLogout } = useContext(VistorContext);
-
   const [qrCode, setQrCode] = useState("");
   const [scanResult, setScanResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
 
-  const handleScan = async () => {
+  useEffect(() => {
+    if (!showScanner) return;
+
+    const scanner = new Html5QrcodeScanner(
+      "reader",
+      {
+        fps: 10,
+        qrbox: {
+          width: 250,
+          height: 250,
+        },
+      },
+      false,
+    );
+
+    scanner.render(async (code) => {
+      setQrCode(code);
+      handleScan(code);
+
+      await scanner.clear();
+
+      setShowScanner(false);
+    });
+  }, [showScanner]);
+
+  const handleScan = async (code = qrCode) => {
     try {
-      if (!qrCode) {
+      if (!code) {
         return toast.error("ENTER QR CODE");
       }
       setLoading(true);
       const res = await api.put("/security/scan", {
-        qrCode,
+        qrCode: code,
       });
 
       toast.success(res.data.message || "VALID PASS");
@@ -86,10 +112,28 @@ const SecurityDashboard = () => {
         </div>
 
         <div className="items-center flex  flex-col">
+          {showScanner && (
+            <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+              <div className=" bg-white flex flex-col items-center p-5 rounded-lg">
+                <div
+                  id="reader"
+                  className="w-[350px] border flex flex-col items-center justify-center"
+                />
+
+                <button
+                  onClick={() => setShowScanner(false)}
+                  className="py-1 mt-5 cursor-pointer bg-black text-white px-6 "
+                >
+                  CLOSE
+                </button>
+              </div>
+            </div>
+          )}
           <div className="border-5 h-60 w-60 rounded-3xl justify-center items-center flex">
             <span
+              onClick={() => setShowScanner(true)}
               style={{ fontSize: "100px", color: "#838590" }}
-              className="material-symbols-outlined"
+              className="material-symbols-outlined cursor-pointer"
             >
               qr_code_scanner
             </span>

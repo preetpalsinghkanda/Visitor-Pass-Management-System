@@ -95,13 +95,18 @@ const SecurityScannedVisit = ({
         {visit.status === "checked-in" && (
           <button
             onClick={() => onCheckout(visit._id)}
-            className="cursor-pointer   bg-white sm:w-50 text-[#000000] py-2 px-6 font-extrabold"
+            className="cursor-pointer mx-auto  bg-white sm:w-50 text-[#000000] py-2 px-6 font-extrabold"
           >
             CHECK OUT
           </button>
         )}
 
-        <button onClick={onClose}>CLOSE</button>
+        <button
+          className="bg-black text-white w-fit mx-auto text-xl cursor-pointer font-extrabold px-6 py-1"
+          onClick={onClose}
+        >
+          CLOSE
+        </button>
       </div>
     </div>
   );
