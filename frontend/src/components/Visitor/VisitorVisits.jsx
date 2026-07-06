@@ -208,17 +208,19 @@ const VisitorVisits = () => {
                       {/* menu box  */}
 
                       {openMenu === visit._id && (
-                        <div className="absolute -right-5 -bottom-3 flex flex-col px-5 py-5 justify-center items-center  bg-black gap-2">
+                        <div className="absolute -right-7 -bottom-2 flex flex-col px-4 text-[12px] py-4 justify-center items-center  bg-black gap-2">
                           <button
+                            disabled={visit.status === "rejected"}
                             onClick={() => handleQrPass(visit._id)}
-                            className="cursor-pointer w-full font-bold bg-white text-black"
+                            className={`cursor-pointer w-full font-bold  ${visit.status === "rejected" ? "bg-gray-300 text-gray-500" : "bg-white text-black"} py-1 `}
                           >
                             VIEW QR
                           </button>
 
                           <button
+                            disabled={visit.status === "rejected"}
                             onClick={() => downloadQR(visit._id)}
-                            className=" cursor-pointer w-full px-3 font-bold bg-white text-black"
+                            className={`cursor-pointer py-1 w-full px-2 font-bold  ${visit.status === "rejected" ? "bg-gray-300 text-gray-500" : "bg-white text-black"}  `}
                           >
                             DOWNLOAD QR
                           </button>
@@ -267,7 +269,7 @@ const VisitorVisits = () => {
 
           <button
             onClick={() => setSelectedVisit(null)}
-            className="text-[white] cursor-pointer bg-black px-6 my-5"
+            className="text-[white]  cursor-pointer bg-black px-6 my-5"
           >
             CLOSE
           </button>

@@ -175,8 +175,12 @@ const rejectEntry = async (req, res) => {
             })
         }
 
+        visit.status = "rejected"
+        await visit.save()
+
+
         res.status(200).json({
-            message: "ENTRY REJECTED ..SORRY:(",
+            message: "ENTRY REJECTED:(",
             success: true
         })
 

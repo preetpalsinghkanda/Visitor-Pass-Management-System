@@ -13,59 +13,62 @@ const SecurityDashboard = () => {
 
   const handleScan = async () => {
     try {
+      if (!qrCode) {
+        return toast.error("ENTER QR CODE");
+      }
       setLoading(true);
       const res = await api.put("/security/scan", {
         qrCode,
       });
 
-      toast.success(res.data.message || "CHECKED IN SUCCESSFULLY");
+      toast.success(res.data.message || "VALID PASS");
 
       setScanResult(res.data.visit);
     } catch (err) {
-      toast.error(err.message || "Scan Failed :(");
+      toast.error(
+        err.response.data.message || "INVALID PASS OR EXPIRED PASS :(",
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  const handleApproveEntry = async (id) => {
+    try {
+      const res = await api.put(`/security/checkin/${id}`);
 
-  const handleApproveEntry = async(id) =>{
-    try{
-      const res = await api.put(`/security/checkin/${id}`)
+      toast.success(res.data.message);
 
-      toast.success(res.data.message)
-
-      setScanResult(null)
-      setQrCode("")
-
-    }catch(err){
-
-      toast.error(err.message || "SOMETHING WENT WRONG")
-
+      setScanResult(null);
+      setQrCode("");
+    } catch (err) {
+      toast.error(err.message || "SOMETHING WENT WRONG");
     }
-  }
+  };
 
-  const handleRejectEntry = async (id) =>{
-    try{
-      const res = await api.put(`/security/reject/${id}`)
-      toast.success(res.data.message)
-      setScanResult(null)
-      setQrCode("")
-
-    }catch(err){
-
-      toast.error(err.message || "SOMETHING WENT WRONG")
-
+  const handleRejectEntry = async (id) => {
+    try {
+      const res = await api.put(`/security/reject/${id}`);
+      toast.success(res.data.message);
+      setScanResult(null);
+      setQrCode("");
+    } catch (err) {
+      toast.error(err.message || "SOMETHING WENT WRONG");
     }
-  }
+  };
 
-  const handleCheckout = async(id) =>{
-    try{
+  const handleCheckout = async (id) => {
+    try {
+      const res = await api.put(`/security/checkout/${id}`);
 
-    }catch(){
+      toast.success(res.data.message);
 
+      setScanResult(null);
+      setQrCode("");
+    } catch (err) {
+      toast.error(err.message || "SOMETHING WENT WRONG");
     }
-  }
+  };
 
   return (
     <div className="max-w-[90rem]  flex-col  mx-auto justify-center flex">
@@ -123,10 +126,9 @@ const SecurityDashboard = () => {
         <SecurityScannedVisit
           visit={scanResult}
           onClose={() => setScanResult(null)}
-          onApprove = {handleApproveEntry}
-          onReject = {handleRejectEntry}
+          onApprove={handleApproveEntry}
+          onReject={handleRejectEntry}
           onCheckout={handleCheckout}
-
         />
       )}
     </div>
