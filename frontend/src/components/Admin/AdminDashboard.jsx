@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "recharts";
 import AdminCreate from "./AdminCreate";
+import AdminVisits from "./AdminVisits";
 
 const AdminDashboard = () => {
   const [selectedBtn, setSelectedBtn] = useState("dashboard");
@@ -120,6 +121,8 @@ const AdminDashboard = () => {
         )}
 
         {selectedBtn === "create" && <AdminCreate />}
+
+        {selectedBtn ==="visit" && <AdminVisits/>}
       </div>
     </div>
   );

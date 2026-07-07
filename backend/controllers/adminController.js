@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt")
+const Visit = require("../models/Visit.js")
 
 const getAllUsers = async (req, res) => {
 
@@ -45,7 +46,7 @@ const getSingleUser = async (req, res) => {
 const createUser = async (req, res) => {
     try {
 
-        const { name, email, password, role , phone} = req.body;
+        const { name, email, password, role, phone } = req.body;
 
         if (!name || !email || !password || !role || !phone) {
             return res.status(400).json({
@@ -95,7 +96,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
 
-        const { name, email, role , phone } = req.body
+        const { name, email, role, phone } = req.body
         const id = req.params.id
 
         const user = await User.findById(id)
@@ -223,5 +224,27 @@ const unbanUser = async (req, res) => {
     }
 }
 
+const getAllVisits = async (req, res) => {
 
-module.exports = { getAllUsers, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
+    try {
+        const visits = await Visit.find()
+            .populate("visitor", "name email phone photo")
+            .populate("host", "name")
+            .sort({ createdAt: -1 })
+
+
+        return res.status(200).json({
+            success: true,
+            visits,   
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message,
+        })
+    }
+
+}
+
+module.exports = { getAllUsers, getAllVisits, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
