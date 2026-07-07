@@ -2,7 +2,7 @@ import React from "react";
 
 const AdminCreate = () => {
   return (
-    <div className="gap-8 flex-col flex justify-center items-center">
+    <div className="gap-8  flex-col flex justify-center items-center">
 
       <h4 className="text-black text-4xl font-bold">CREATE ACCESS ID</h4>
       
