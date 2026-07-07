@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import AdminCreate from "./AdminCreate";
 
 const AdminDashboard = () => {
   const sampleData = [
@@ -27,6 +28,9 @@ const AdminDashboard = () => {
             DASHBOARD
           </li>
           <li className="bg-black text-white px-6 py-3 cursor-pointer">
+            CREATE
+          </li>
+          <li className="bg-black text-white px-6 py-3 cursor-pointer">
             VISITS
           </li>
           <li className="bg-black text-white px-6 py-3 cursor-pointer">
@@ -41,7 +45,7 @@ const AdminDashboard = () => {
         </ul>
       </div>
 
-      <div className=" flex flex-col items-start w-full">
+      {/* <div className=" flex flex-col items-start w-full">
         <div className="flex w-full">
           <div className="border flex flex-col gap-4 flex-1 w-fit px-6 py-2">
             <span className="flex gap-20 text-7xl font-extrabold justify-between">
@@ -89,7 +93,13 @@ const AdminDashboard = () => {
             />
           </LineChart>
         </div>
-      </div>
+      </div> */}
+
+
+<div className="border w-full flex items-center justify-center">
+      <AdminCreate/></div>
+
+
     </div>
   );
 };

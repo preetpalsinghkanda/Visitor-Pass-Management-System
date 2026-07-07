@@ -27,6 +27,7 @@ import GuestRoute from "./components/GuestRoute";
 import EmployeeAllVisits from "./components/Employee/EmployeeAllVisits";
 import SecurityScannedVisit from "./components/Security/SecurityScannedVisit";
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import AdminCreate from "./components/Admin/AdminCreate";
 
 const App = () => {
   const location = useLocation();
@@ -210,6 +211,7 @@ const App = () => {
     <>
     {/* <AdminLogin/> */}
     <AdminDashboard/>
+    {/* <AdminCreate/> */}
     </>
   );
 };
