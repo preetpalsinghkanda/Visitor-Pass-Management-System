@@ -1,6 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
+import api from "../../services/api";
+import toast from "react-hot-toast";
+import VistorContext from "../../context/VistorContext";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+
+  const { email, setEmail, pass, setPass } = useContext(VistorContext);
+
+  const handleAdminLogin = async () => {
+    try {
+      if (!email || !pass) {
+        return toast.error("BOTH INPUTS ARE REQUIRED");
+      }
+
+      await toast.promise(
+        api.post("/users/login", {
+          email,
+          password: pass,
+          role: "admin",
+        }),
+        {
+          loading: "ACCESSING TERMINAL...",
+          success: "WELCOME ADMIN",
+          error: "INVALID ADMIN CRED...",
+        },
+      );
+
+      navigate("/admin/dashboard");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <div className=" max-w-[90rem]  flex justify-center  mx-auto ">
       <div className=" flex justify-center h-fit flex-col bg-white px-12 py-10 max-w-[30rem] w-full ">
@@ -11,7 +44,6 @@ const AdminLogin = () => {
 
         <div className="w-full flex flex-col  mb-8 my-3">
           <div>
-            {" "}
             <label
               htmlFor="admin-mail"
               className="bg-white relative top-3 left-8"
@@ -19,6 +51,8 @@ const AdminLogin = () => {
               Admin Identifier
             </label>
             <input
+              onChange={(x) => setEmail(x.target.value)}
+              value={email}
               type="text"
               name="admin-mail"
               className="w-full px-4 border outline-0 py-3 text-xl"
@@ -32,13 +66,18 @@ const AdminLogin = () => {
               Access Key
             </label>
             <input
+              value={pass}
+              onChange={(x) => setPass(x.target.value)}
               type="password"
               name="admin-pass"
               className="w-full px-4 border outline-0 py-3 text-xl"
             />
           </div>
         </div>
-        <button className="border cursor-pointer bg-[#000000dd] text-white py-3 px-4 text-lg">
+        <button
+          onClick={handleAdminLogin}
+          className="border cursor-pointer bg-[#000000dd] text-white py-3 px-4 text-lg"
+        >
           INITIALIZE HANDSHAKE
         </button>
 

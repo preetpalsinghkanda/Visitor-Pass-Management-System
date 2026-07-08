@@ -90,7 +90,7 @@ const Experience = () => {
           </div>
 
           <button
-            onClick={() => navigate("/admin/dashboard")}
+            onClick={() => navigate("/admin/login")}
             className="flex w-fit border-t-2 border-r-2 text-2xl items-center gap-2 cursor-pointer px-5 py-1 "
           >
             Enter<span class="material-symbols-outlined">arrow_right_alt</span>
