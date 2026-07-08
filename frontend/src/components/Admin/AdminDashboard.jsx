@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,8 +9,10 @@ import {
 } from "recharts";
 import AdminCreate from "./AdminCreate";
 import AdminVisits from "./AdminVisits";
+import VistorContext from "../../context/VistorContext";
 
 const AdminDashboard = () => {
+  const { handleLogout } = useContext(VistorContext);
   const [selectedBtn, setSelectedBtn] = useState("dashboard");
 
   const sampleData = [
@@ -63,10 +65,12 @@ const AdminDashboard = () => {
           >
             SECURITIES
           </li>
+          <li>
+            <button onClick={handleLogout} className="text-[red] cursor-pointer">LOG OUT</button>
+          </li>
         </ul>
       </div>
 
-    
       <div className="border w-full flex items-center justify-center">
         {selectedBtn === "dashboard" && (
           <div className=" flex flex-col items-start w-full">
@@ -122,7 +126,7 @@ const AdminDashboard = () => {
 
         {selectedBtn === "create" && <AdminCreate />}
 
-        {selectedBtn ==="visit" && <AdminVisits/>}
+        {selectedBtn === "visit" && <AdminVisits />}
       </div>
     </div>
   );
