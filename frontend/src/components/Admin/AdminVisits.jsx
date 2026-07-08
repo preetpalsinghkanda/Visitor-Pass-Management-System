@@ -6,6 +6,17 @@ import toast from "react-hot-toast";
 const AdminVisits = () => {
   const [visits, setVisits] = useState([]);
 
+  const handleDeleteVisit = async (id) => {
+    try {
+      const res = await api.delete(`/admin/visit/${id}`);
+      toast.success(res.data.message);
+
+      setVisits((previous) => previous.filter((visit) => visit._id !== id));
+    } catch (err) {
+      toast.error(err.message || "DELETE FAIL :(");
+    }
+  };
+
   useEffect(() => {
     const adminAllVisits = async () => {
       try {
@@ -20,7 +31,7 @@ const AdminVisits = () => {
   }, []);
 
   return (
-    <div className="border w-full grid grid-cols-2 h-[95.8vh] overflow-y-auto">
+    <div className="  w-full h-fit grid grid-cols-2 max-h-[95.8vh] overflow-y-auto">
       {visits.map((visit) => (
         <div
           key={visit._id}
@@ -36,7 +47,9 @@ const AdminVisits = () => {
             </div>
 
             <div className="-rotate-90 relative h-fit left-0 top-20 ">
-              <p className="tracking-widest font-extrabold uppercase">{visit.status}</p>
+              <p className="tracking-widest font-extrabold uppercase">
+                {visit.status}
+              </p>
             </div>
 
             <div className="flex  flex-col gap-2">
@@ -116,9 +129,14 @@ const AdminVisits = () => {
           </div>
 
           <div className="border w-full flex justify-around text-xl font-bold">
-            <button className="text-[#e32a2ae6] cursor-pointer ">DELETE</button>
-            <button className="text-[#23d423e4] cursor-pointer">APPROVE</button>
-            <button className="text-[#0606b6cb] cursor-pointer">REJECT</button>
+            <button
+              onClick={() => handleDeleteVisit(visit._id)}
+              className="text-[#e32a2ae6] cursor-pointer "
+            >
+              DELETE
+            </button>
+            {/* <button className="text-[#23d423e4] cursor-pointer">APPROVE</button>
+            <button className="text-[#0606b6cb] cursor-pointer">REJECT</button> */}
           </div>
         </div>
       ))}

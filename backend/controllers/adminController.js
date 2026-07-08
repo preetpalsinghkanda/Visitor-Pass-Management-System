@@ -235,7 +235,7 @@ const getAllVisits = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            visits,   
+            visits,
         })
 
     } catch (err) {
@@ -247,4 +247,30 @@ const getAllVisits = async (req, res) => {
 
 }
 
-module.exports = { getAllUsers, getAllVisits, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
+const deleteVisit = async (req, res) => {
+    try {
+        const visit = await Visit.findById(req.params.id)
+
+        if (!visit) {
+            return res.status(400).json({
+                success: false,
+                message: "VISIT NOT FOUND"
+            })
+        }
+
+        await visit.deleteOne()
+
+        return res.status(200).json({
+            success: true,
+            message: "VISIT DELETED"
+        })
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+module.exports = { getAllUsers, deleteVisit,getAllVisits, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
