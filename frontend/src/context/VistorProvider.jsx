@@ -37,7 +37,6 @@ function VistorProvider({ children }) {
 
   const [employees, setEmployees] = useState([]);
 
-
   // getEmployees by useffect
   useEffect(() => {
     const getEmployees = async () => {
@@ -71,17 +70,29 @@ function VistorProvider({ children }) {
     formData.append("photo", img);
 
     try {
-      const photoRes = await api.put("/users/update-profile-photo", formData);
+      const photoRes = await toast.promise(
+        api.put("/users/update-profile-photo", formData),
+        {
+          loading: "PICTURE UPDATING...",
+          success: "PROFILE PICTURE UPDATED",
+          error: "PICTURE UPDATE FAILLL :(",
+        },
+      );
+
+      console.log(photoRes.data);
+console.log(photoRes.data.user);
+console.log(photoRes.data.user.photo);
 
       setUser(photoRes.data.user);
       setOriginalUser(photoRes.data.user);
+      await currentUser();
 
-      toast.success("PROFILE PICTURE UPDATED");
-
-      setImgPreview("");
       setSelectedImg(null);
+      setImgPreview("");
     } catch (err) {
       toast.error(err.message || "UPLOAD FAIL");
+    } finally {
+      x.target.value = "";
     }
   };
 
@@ -205,6 +216,8 @@ function VistorProvider({ children }) {
   return (
     <VistorContext.Provider
       value={{
+        originaluser,
+        setOriginalUser,
         host,
         setHost,
         company,

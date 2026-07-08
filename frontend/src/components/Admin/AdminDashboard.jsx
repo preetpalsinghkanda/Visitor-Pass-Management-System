@@ -25,8 +25,8 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="max-w-[90rem]  mx-auto flex  px-4 py-4">
-      <div className=" flex flex-col justify-center py-6  w-fit px-10 ">
+    <div className="max-w-[90rem]  border mx-auto flex h-[97vh] overflow-hidden px-4 py-4">
+      <div className="border flex flex-col justify-center py-6  w-fit px-10 ">
         <p className="text-6xl font-extrabold">VISTRA</p>
         <ul className=" flex flex-col text-center gap-10 my-8 text-2xl w-fit font-bold ">
           <li
@@ -66,12 +66,17 @@ const AdminDashboard = () => {
             SECURITIES
           </li>
           <li>
-            <button onClick={handleLogout} className="text-[red] cursor-pointer">LOG OUT</button>
+            <button
+              onClick={handleLogout}
+              className="text-[red] cursor-pointer"
+            >
+              LOG OUT
+            </button>
           </li>
         </ul>
       </div>
 
-      <div className="border w-full flex items-center justify-center">
+      <div className=" w-full flex  justify-center">
         {selectedBtn === "dashboard" && (
           <div className=" flex flex-col items-start w-full">
             <div className="flex w-full">

@@ -46,7 +46,6 @@ const registerUser = async (req, res) => {
 
 
     } catch (err) {
-        console.log(err)
         res.status(500).json({
             message: err.message,
             success: false,
@@ -59,10 +58,10 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
 
     try {
-        const { email, password , role } = req.body;
+        const { email, password, role } = req.body;
 
         // inputs check
-         if (!email || !password) {
+        if (!email || !password) {
 
             return res.status(400).json({
                 success: false,
@@ -93,10 +92,10 @@ const loginUser = async (req, res) => {
         }
 
 
-        if(user.role !== role){
+        if (user.role !== role) {
             return res.status(403).json({
-                message : "UNAUTHORIZED LOGIN",
-                success : false
+                message: "UNAUTHORIZED LOGIN",
+                success: false
             })
         }
 
@@ -168,9 +167,6 @@ const updateUser = async (req, res) => {
         user.phone = phone
 
         await user.save()
-
-        console.log(user)
-
         return res.status(200).json({
             message: "PROFILE UPDATED",
             user,
@@ -189,7 +185,7 @@ const updateUser = async (req, res) => {
 const updateProfilePhoto = async (req, res) => {
     try {
 
-
+        console.log("req.file:", req.file);
         const user = await User.findById(req.user.id)
 
         if (!user) {
@@ -248,4 +244,4 @@ const getEmployees = async (req, res) => {
 }
 
 
-module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto , getEmployees }
+module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto, getEmployees }

@@ -20,14 +20,14 @@ const AdminVisits = () => {
   }, []);
 
   return (
-    <div className="border w-full">
+    <div className="border w-full grid grid-cols-2 h-[95.8vh] overflow-y-auto">
       {visits.map((visit) => (
         <div
           key={visit._id}
-          className="flex  items-center w-fit border  flex-col gap-6"
+          className="flex  items-center  justify-between   mx-auto mb-6 flex-col gap-6"
         >
-          <div className="flex gap-6">
-            <div className="h-45 w-35">
+          <div className="flex py-2 w-full  justify-around gap-6 px-2 ">
+            <div className="h-45 w-35 ">
               <img
                 className="h-full w-full object-cover"
                 src={visit.visitor.photo}
@@ -35,12 +35,18 @@ const AdminVisits = () => {
               />
             </div>
 
-            <div className="flex  flex-col gap-4">
+            <div className="-rotate-90 relative h-fit left-0 top-20 ">
+              <p className="tracking-widest font-extrabold uppercase">{visit.status}</p>
+            </div>
+
+            <div className="flex  flex-col gap-2">
               <div className="flex items-center gap-4">
-                <label className="text-sm font-extrabold text-[#00000096]">
+                <label className="text-sm  font-extrabold text-[#00000096]">
                   NAME
                 </label>
-                <p className="text-3xl font-black">{visit.visitor.name}</p>
+                <p className="text-3xl whitespace-nowrap font-black">
+                  {visit.visitor.name}
+                </p>
               </div>
 
               <div className="flex items-center gap-4">
@@ -54,7 +60,7 @@ const AdminVisits = () => {
                 <label className="font-extrabold text-[#00000096] text-sm">
                   VISIT TIME
                 </label>
-                <p className="font-black text-lg">
+                <p className="font-black uppercase text-lg">
                   {new Date(`2026-01-01T${visit.visitTime}`).toLocaleTimeString(
                     "en-IN",
                     {
@@ -89,11 +95,11 @@ const AdminVisits = () => {
             </div>
           </div>
 
-          <div className="border w-full">
+          <div className="border w-full ">
             <h5 className="text-sm bg-black text-white text-center font-extrabold tracking-wider py-1">
               CONTACT DETAILS
             </h5>
-            <div className="my-2 gap-3 flex flex-col">
+            <div className="my-2 gap-3 flex px-2 flex-col">
               <div className="flex items-center gap-4">
                 <label className="text-sm text-[#00000096] font-extrabold">
                   PHONE NO
@@ -107,6 +113,12 @@ const AdminVisits = () => {
                 <p className="text-lg font-black">{visit.visitor.email}</p>
               </div>
             </div>
+          </div>
+
+          <div className="border w-full flex justify-around text-xl font-bold">
+            <button className="text-[#e32a2ae6] cursor-pointer ">DELETE</button>
+            <button className="text-[#23d423e4] cursor-pointer">APPROVE</button>
+            <button className="text-[#0606b6cb] cursor-pointer">REJECT</button>
           </div>
         </div>
       ))}
