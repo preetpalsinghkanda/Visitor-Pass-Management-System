@@ -13,6 +13,7 @@ router.get('/users', authMiddleware, roleMiddleware("admin"), getAllUsers)
 router.get('/users/:id', authMiddleware, roleMiddleware("admin"), getSingleUser)
 
 router.post("/users", authMiddleware, roleMiddleware("admin"), createUser)
+
 router.delete("/users/:id", authMiddleware, roleMiddleware("admin"), deleteUser)
 
 router.put('/users/:id', authMiddleware, roleMiddleware("admin"), updateUser)
