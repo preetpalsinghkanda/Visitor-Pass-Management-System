@@ -26,7 +26,7 @@ const AdminCreate = () => {
 
       (setName(""), setEmail(""), setPass(""), setPhone(""), setRole(""));
     } catch (err) {
-      toast.error(err.message || "FAILED TO CREATE ID");
+      toast.error(err.response?.data.message || "FAILED TO CREATE ID");
     }
   };
 
@@ -42,14 +42,14 @@ const AdminCreate = () => {
     <div className="gap-8  flex-col flex justify-center items-center">
       <h4 className="text-black text-4xl font-bold">CREATE ACCESS ID</h4>
 
-      <div className="  px-6 py-5 gap-2 flex flex-col">
+      <div className=" border px-6 py-5 gap-2 flex flex-col">
         <div className="bg-white  px-6 py-5 gap-2 flex flex-col">
           <div className="flex flex-col gap-1">
             <label className="text-sm font-bold">NAME</label>
             <input
               value={name}
               onChange={(x) => setName(x.target.value)}
-              type="text "
+              type="text"
               placeholder="Lionel Messi"
               className=" text-lg  outline-0 p-2"
             />
@@ -96,6 +96,7 @@ const AdminCreate = () => {
             <option value="">SELECT ROLE</option>
             <option value="employee">Employee</option>
             <option value="security">Security</option>
+            <option value="visitor">Visitor</option>
           </select>
         </div>
 

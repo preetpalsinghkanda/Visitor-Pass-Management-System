@@ -273,4 +273,52 @@ const deleteVisit = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, deleteVisit,getAllVisits, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };
+
+const getTotal = async (req, res) => {
+    try {
+
+        //total visits 
+        const totalVisits = await (Visit.countDocuments())
+
+        //total visitors
+        const totalVisitors = await User.countDocuments(
+            {
+                role: "visitor"
+            }
+        )
+
+        //total employee
+
+        const totalEmployees = await User.countDocuments({
+            role: "employee"
+        })
+
+        //total security
+
+        const totalSecurity = await User.countDocuments({
+            role: "security"
+        })
+
+
+        res.status(200).json({
+            success: true,
+            total: {
+                totalEmployees,
+                totalSecurity,
+                totalVisitors,
+                totalVisits,
+            }
+        })
+
+
+
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+module.exports = { getAllUsers, getTotal, deleteVisit, getAllVisits, getSingleUser, createUser, updateUser, deleteUser, banUser, unbanUser };

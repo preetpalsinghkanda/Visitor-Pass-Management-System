@@ -5,7 +5,7 @@ const router = express.Router()
 const authMiddleware = require("../middleware/authMiddleware")
 const roleMiddleware = require("../middleware/roleMiddleware")
 
-const { getAllUsers, getSingleUser, deleteVisit, createUser, updateUser, deleteUser, banUser, unbanUser, getAllVisits } = require("../controllers/adminController")
+const { getAllUsers, getSingleUser, getTotal ,deleteVisit, createUser, updateUser, deleteUser, banUser, unbanUser, getAllVisits } = require("../controllers/adminController")
 
 
 router.get('/users', authMiddleware, roleMiddleware("admin"), getAllUsers)
@@ -25,6 +25,8 @@ router.patch("/users/:id/unban", authMiddleware, roleMiddleware("admin"), unbanU
 router.get("/all-visits", authMiddleware, roleMiddleware("admin"), getAllVisits)
 
 router.delete("/visit/:id", authMiddleware, roleMiddleware("admin"), deleteVisit)
+
+router.get("/total" , authMiddleware , roleMiddleware("admin") , getTotal)
 
 
 

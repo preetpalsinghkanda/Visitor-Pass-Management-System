@@ -1,13 +1,12 @@
-import React from 'react'
-import underConstructionImg from "../../assets/underConstruction.jpg"
+import React from "react";
+import underConstructionImg from "../../assets/underConstruction.jpg";
 
 const AdminUnderConstruction = () => {
   return (
-    <div>
-        <img src={underConstructionImg} alt="" />
-
+    <div className="w-full flex">
+      <img src={underConstructionImg} alt="" />
     </div>
-  )
-}
+  );
+};
 
-export default AdminUnderConstruction
+export default AdminUnderConstruction;

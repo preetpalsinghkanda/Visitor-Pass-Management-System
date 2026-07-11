@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -10,6 +10,9 @@ import {
 import AdminCreate from "./AdminCreate";
 import AdminVisits from "./AdminVisits";
 import VistorContext from "../../context/VistorContext";
+import AdminUnderConstruction from "./AdminUnderConstruction";
+import toast from "react-hot-toast";
+import api from "../../services/api";
 
 const AdminDashboard = () => {
   const { handleLogout } = useContext(VistorContext);
@@ -24,9 +27,32 @@ const AdminDashboard = () => {
     { month: "JUN", visits: 72 },
   ];
 
+  const [total, setTotal] = useState({
+    totalVisits: 0,
+    totalVisitors: 0,
+    totalEmployees: 0,
+    totalSecurity: 0,
+  });
+
+  useEffect(() => {
+    const getTotal = async () => {
+      try {
+        const res = await api.get("/admin/total");
+        setTotal(res.data.total);
+      } catch (err) {
+        console.log(err);
+        console.log(err.response);
+        console.log(err.response?.data);
+        toast.error("UNABLE TO FETCH TOTAL DATA" || err.message);
+      }
+    };
+
+    getTotal();
+  }, []);
+
   return (
-    <div className="max-w-[90rem]  border mx-auto flex h-[97vh] overflow-hidden px-4 py-4">
-      <div className="border flex flex-col justify-center py-6  w-fit px-10 ">
+    <div className="max-w-[90rem]   mx-auto flex h-[97vh] overflow-hidden px-4 py-4">
+      <div className=" flex flex-col justify-center py-6  w-fit px-10 ">
         <p className="text-6xl font-extrabold">VISTRA</p>
         <ul className=" flex flex-col text-center gap-10 my-8 text-2xl w-fit font-bold ">
           <li
@@ -82,31 +108,31 @@ const AdminDashboard = () => {
             <div className="flex w-full">
               <div className="border flex flex-col gap-4 flex-1 w-fit px-6 py-2">
                 <span className="flex gap-20 text-7xl font-extrabold justify-between">
-                  20
+                  {total.totalVisits}
                   <span class="material-symbols-outlined">call_made</span>
                 </span>
                 <p className="text-lg font-bold text-end">ALL VISITS</p>
               </div>
               <div className="border flex flex-col gap-4 flex-1 w-fit px-6 py-2">
                 <span className="flex gap-20 text-7xl font-extrabold justify-between">
-                  20
+                  {total.totalVisitors}
                   <span class="material-symbols-outlined">call_made</span>
                 </span>
-                <p className="text-lg font-bold text-end">ALL VISITS</p>
+                <p className="text-lg font-bold text-end">ALL VISITORS</p>
               </div>
               <div className="border flex flex-col gap-4 flex-1 w-fit px-6 py-2">
                 <span className="flex gap-20 text-7xl font-extrabold justify-between">
-                  20
+                  {total.totalEmployees}
                   <span class="material-symbols-outlined">call_made</span>
                 </span>
-                <p className="text-lg font-bold text-end">ALL VISITS</p>
+                <p className="text-lg font-bold text-end">ALL EMPLOYEE</p>
               </div>
               <div className="border flex-1 w-fit gap-4 flex flex-col px-6 py-2">
                 <span className="flex gap-20 text-7xl font-extrabold justify-between">
-                  20
+                  {total.totalSecurity}
                   <span class="material-symbols-outlined">call_made</span>
                 </span>
-                <p className="text-lg font-bold text-end">ALL VISITS</p>
+                <p className="text-lg font-bold text-end">ALL SECURITY</p>
               </div>
             </div>
 
@@ -132,6 +158,12 @@ const AdminDashboard = () => {
         {selectedBtn === "create" && <AdminCreate />}
 
         {selectedBtn === "visit" && <AdminVisits />}
+
+        {selectedBtn === "employee" && <AdminUnderConstruction />}
+
+        {selectedBtn === "security" && <AdminUnderConstruction />}
+
+        {selectedBtn === "visitor" && <AdminUnderConstruction />}
       </div>
     </div>
   );
