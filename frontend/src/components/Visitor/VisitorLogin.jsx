@@ -39,8 +39,8 @@ const VisitorLogin = () => {
   };
 
   return (
-    <div className=" mx-auto max-w-[90rem] flex items-center justify-between h-screen">
-      <div className=" max-w-[35rem] px-15 py-15">
+    <div className=" mx-auto max-w-[90rem] flex items-center justify-between  h-[96vh]">
+      <div className=" max-w-[35rem] px-15 shadow-2xl py-15">
         <div className="flex flex-col gap-4  ">
           <h3 className="text-6xl font-extrabold">Welcome back.</h3>
           <p className="font-bold text-[]">
@@ -75,6 +75,10 @@ const VisitorLogin = () => {
             className=" py-4 my-4 cursor-pointer bg-[#000000dd] text-white"
           >
             Sign in to Facility
+          </button>
+
+          <button onClick={()=>navigate("/")}  className="text-white cursor-pointer bg-black w-fit  mx-auto px-6 text-sm py-1 ">
+            BACK TO HOME
           </button>
 
           <div className="text-center">

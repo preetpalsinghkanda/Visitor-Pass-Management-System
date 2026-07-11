@@ -36,8 +36,8 @@ const SecurityLogin = () => {
   };
 
   return (
-    <div className=" max-w-[90rem] mx-auto h-screen justify-center items-center flex-col flex">
-      <div className=" max-w-[30rem] border py-15 h-fit justify-center flex flex-col items-center text-center px-15  ">
+    <div className=" max-w-[90rem] mx-auto h-[96vh] justify-center items-center flex-col flex">
+      <div className=" shadow-2xl max-w-[30rem]  py-15 h-fit justify-center flex flex-col items-center text-center px-15  ">
         <div className=" w-full">
           <h3 className="text-3xl font-bold">Operator Auth</h3>
           <p className="text-lg">Insert credentials to unlock gate control.</p>
@@ -83,13 +83,16 @@ const SecurityLogin = () => {
         <div className="border w-full my-8 border-[#0000002b]"></div>
         <div className="text-center flex flex-col justify-center items-center gap-4">
           <div className="text-sm flex items-center gap-3 font-bold">
-            <span class="material-symbols-outlined">qr_code_scanner</span>Scan
-            Terminal Access Code
+            <span class="material-symbols-outlined">qr_code_scanner</span>
+            Scan Terminal Access Code
           </div>
+
           <span className="text-sm text-[#000000b5]">
-            {" "}
             Unauthorized access is monitored and logged.
           </span>
+          <button onClick={()=> navigate("/")} className="text-sm text-white bg-black px-6  py-1 cursor-pointer">
+            BACK TO HOME
+          </button>
         </div>
       </div>
 

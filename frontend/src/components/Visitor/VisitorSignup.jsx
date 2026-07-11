@@ -93,7 +93,7 @@ const VisitorSignup = () => {
   };
 
   return (
-    <div className=" h-screen flex   justify-center items-center max-w-[90rem] mx-auto">
+    <div className="  flex   justify-center items-center h-[96vh]  mx-auto">
       <div className="max-w-150 visitor-register border border-[#0000003a]  self-center px-12 py-12 ">
         <div className="flex flex-col gap-3">
           <h3 className="text-5xl font-extrabold">Get your access pass</h3>
@@ -171,9 +171,18 @@ const VisitorSignup = () => {
             Register to Facility
           </button>
 
+          <button onClick={()=>navigate("/")} className="px-6 mx-auto w-fit bg-black text-white text-sm py-1 cursor-pointer">
+            BACK TO HOME
+          </button>
+
           <div className="text-center">
             Already have a pass?{" "}
-            <span onClick={()=> navigate("/visitor/login")}  className=" font-extrabold cursor-pointer">Sign in here</span>
+            <span
+              onClick={() => navigate("/visitor/login")}
+              className=" font-extrabold cursor-pointer"
+            >
+              Sign in here
+            </span>
           </div>
         </div>
       </div>

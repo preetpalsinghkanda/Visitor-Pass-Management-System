@@ -35,7 +35,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className=" max-w-[90rem]  flex justify-center  mx-auto ">
+    <div className=" max-w-[90rem]  shadow-2xl w-fit flex justify-center  mx-auto ">
       <div className=" flex justify-center h-fit flex-col bg-white px-12 py-10 max-w-[30rem] w-full ">
         <div className="flex flex-col justify-center items-center gap-4">
           <h2 className="text-4xl font-bold">VISTRA</h2>
@@ -51,6 +51,7 @@ const AdminLogin = () => {
               Admin Identifier
             </label>
             <input
+            placeholder="admin@gmail.com"
               onChange={(x) => setEmail(x.target.value)}
               value={email}
               type="text"
@@ -66,6 +67,7 @@ const AdminLogin = () => {
               Access Key
             </label>
             <input
+            placeholder="******"
               value={pass}
               onChange={(x) => setPass(x.target.value)}
               type="password"
@@ -80,6 +82,8 @@ const AdminLogin = () => {
         >
           INITIALIZE HANDSHAKE
         </button>
+
+        <button onClick={()=> navigate("/")} className="text-white bg-black w-fit  mx-auto my-2 px-6 py-1 text-sm cursor-pointer">BACK TO HOME</button>
 
         <span className="text-[#00000077] text-end my-6">Secure Node 402</span>
       </div>

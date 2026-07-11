@@ -39,8 +39,12 @@ const EmployeeLogin = () => {
   };
 
   return (
-    <div className="max-w-[90rem]  h-[96vh]  mx-auto flex justify-end items-center">
-      <div className="max-w-[30rem] px-15 border w-full py-15 h-fit">
+    <div className="max-w-[90rem]  h-[96vh]   mx-auto flex justify-around items-center">
+      <img
+        src="https://i.pinimg.com/736x/0d/a4/7b/0da47ba8f9f0ad7c32475adba3547e35.jpg"
+        alt=""
+      />
+      <div className="max-w-[30rem] shadow-2xl px-15  w-full py-15 h-fit">
         <div className=" flex flex-col gap-2">
           <h4 className="text-4xl font-extrabold">Employee Login</h4>
           <p className="text-lg font-[500]">
@@ -48,10 +52,11 @@ const EmployeeLogin = () => {
           </p>
         </div>
 
-        <div className="flex justify-center my-7 cursor-pointer">
+        <div className="flex  gap-1 flex-col justify-center my-7 cursor-pointer">
           <span className="border px-8 text-lg font-bold py-1.5 mx-auto ">
             <FontAwesomeIcon icon={faGoogle} /> Google
           </span>
+          <p className="text-[10px] text-center ">(GOOGLE LOGIN NOT WORKING)</p>
         </div>
 
         <div className="relative">
@@ -85,10 +90,19 @@ const EmployeeLogin = () => {
         </div>
         <button
           onClick={handleEmployeeLogin}
-          className="cursor-pointer border bg-[#000000dd] text-white w-full py-3"
+          className="cursor-pointer border uppercase bg-[#000000dd] text-white w-full py-3"
         >
           Sign In to WorkSpace
         </button>
+
+        <div className="w-full justify-center flex">
+          <button
+            onClick={() => navigate("/")}
+            className="text-sm bg-black text-white px-6 py-1 my-2 cursor-pointer "
+          >
+            BACK TO HOME
+          </button>
+        </div>
       </div>
     </div>
   );
