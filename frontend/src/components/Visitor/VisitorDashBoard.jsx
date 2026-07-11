@@ -21,14 +21,17 @@ const VisitorDashBoard = () => {
           VISTRA
         </div>
 
-        <div className="w-fit absolute right-12 top- self-end py-1.5 my-2 px-4 rounded-full text-white bg-black flex items-center gap-4">
+        <div className="w-fit  absolute right-12 top- self-end py-1.5 my-2 px-4 rounded-full text-white bg-black flex items-center gap-4">
           <span className="material-symbols-outlined">
             notifications_unread
           </span>
 
           <div className="h-8 w-px bg-white/30"></div>
 
-          <div className="flex flex-row-reverse items-center gap-3">
+          <div
+            onClick={() => navigate("/visitor/settings")}
+            className="flex cursor-pointer flex-row-reverse items-center gap-3"
+          >
             <div className="h-10 w-10">
               <img
                 className="h-full w-full object-cover rounded-full"

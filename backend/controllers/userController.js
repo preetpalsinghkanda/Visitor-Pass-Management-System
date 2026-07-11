@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const Visit = require("../models/Visit")
 
 const registerUser = async (req, res) => {
 
@@ -244,4 +245,51 @@ const getEmployees = async (req, res) => {
 }
 
 
-module.exports = { registerUser, loginUser, logoutUser, updateUser, updateProfilePhoto, getEmployees }
+const getVisitorTotal = async (req, res) => {
+    try {
+
+        const totalPass = await Visit.countDocuments({
+            visitor: req.user.id,
+        })
+
+        const totalPending = await Visit.countDocuments({
+            visitor: req.user.id,
+            status: "pending"
+        })
+
+        const totalApproved = await Visit.countDocuments({
+            visitor: req.user.id,
+            status: "approved"
+        })
+
+        const totalRejected = await Visit.countDocuments({
+            visitor: req.user.id,
+            status: "rejected"
+        })
+
+        const totalCompleted = await Visit.countDocuments({
+            visitor: req.user.id,
+            status: "completed"
+        })
+
+
+        return res.status(200).json({
+            success: true,
+            total: {
+                totalApproved,
+                totalCompleted,
+                totalPass,
+                totalPending,
+                totalRejected,
+            }
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message,
+            success: false,
+        })
+    }
+}
+
+module.exports = { registerUser, getVisitorTotal,loginUser, logoutUser, updateUser, updateProfilePhoto, getEmployees }

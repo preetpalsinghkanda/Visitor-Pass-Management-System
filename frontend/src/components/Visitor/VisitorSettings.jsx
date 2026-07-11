@@ -5,6 +5,7 @@ import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const VisitorSettings = () => {
+  const { handleLogout } = useContext(VistorContext);
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(true);
   const {
@@ -52,7 +53,7 @@ const VisitorSettings = () => {
 
   return (
     <div className="max-w-[90rem] mx-auto  justify-center flex-col flex items-start ">
-      <div className="max-w-[35rem] p-10 my-3 border mx-auto  flex flex-col gap-6">
+      <div className="max-w-[35rem] px-10 py-7 my-2 border mx-auto  flex flex-col gap-6">
         <div>
           <h3 className="text-5xl font-extrabold">Settings</h3>
           <p className="text-lg font-medium">
@@ -151,7 +152,7 @@ const VisitorSettings = () => {
         </div>
       </div>
 
-      <div className="max-w-[32.5rem] py-6 border mx-auto w-full my-5 px-10">
+      <div className="max-w-[32.5rem] py-6 border mx-auto w-full my-4 px-10">
         <h4 className=" text-xl font-bold">Preferences</h4>
 
         <div className="my-3 flex justify-between ">
@@ -179,6 +180,16 @@ const VisitorSettings = () => {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={handleLogout}
+        className="text-sm mx-auto cursor-pointer flex font-extrabold items-center gap-2 py-2 bg-black px-6 text-white"
+      >
+        LOGOUT{" "}
+        <span style={{ fontSize: "16px" }} class="material-symbols-outlined">
+          logout
+        </span>
+      </button>
     </div>
   );
 };
