@@ -5,6 +5,7 @@ import VistorContext from "../../context/VistorContext";
 import api from "../../services/api";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import noApprovedImg from "../../assets/noapproved.webp";
 
 const VisitorVisits = () => {
   const [myVisits, setMyVisits] = useState([]);
@@ -56,6 +57,10 @@ const VisitorVisits = () => {
     }
   };
 
+  const upcomingVisits = myVisits
+    .filter((visit) => visit.status === "approved")
+    .slice(0, 2);
+
   return (
     <div className="max-w-[90rem] mx-auto  flex flex-col gap-6">
       <div>
@@ -69,8 +74,78 @@ const VisitorVisits = () => {
         <div>
           <h4 className="text-3xl font-bold">Upcoming Visits</h4>
 
-          {/* <div className="flex gap-6">
-            <div className="">
+          {upcomingVisits.length === 0 ? (
+            <img className="w-140 my-2" src={noApprovedImg} />
+          ) : (
+            <div className="flex gap-6">
+              {upcomingVisits.map((visit) => (
+                <div key={visit._id} className="">
+                  <div className="border  px-10 py-6  my-6">
+                    <div className="flex items-center gap-6 justify-between">
+                      <h4 className="text-3xl">{visit.host.name}</h4>{" "}
+                      <span className=" bg-black px-4 py-1 uppercase text-sm text-white">
+                        {visit.status}
+                      </span>
+                    </div>
+                    <p className="text-xl">{visit.company}</p>
+
+                    <div className="flex justify-between my-4">
+                      <div className="flex items-center  w-fit gap-4 ">
+                        <span className=" material-symbols-outlined">
+                          date_range
+                        </span>
+                        <div>
+                          <span>Date</span>
+                          <p>
+                            {new Date(visit.visitDate).toLocaleDateString(
+                              "en-IN",
+                              {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              },
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center  w-fit gap-4">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <div>
+                          <span>Time</span>
+                          <p className="uppercase">
+                            {new Date(
+                              `2026-07-12T${visit.visitTime}`,
+                            ).toLocaleTimeString("en-IN", {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className=" my-4 flex gap-4">
+                      <button
+                        onClick={() => handleQrPass(visit._id)}
+                        className="flex cursor-pointer whitespace-nowrap justify-center gap-2 py-2 flex-1 items-center border "
+                      >
+                        <span class="material-symbols-outlined">qr_code_2</span>
+                        View QR Pass
+                      </button>
+                      <button
+                        onClick={() => downloadQR(visit._id)}
+                        className="flex cursor-pointer whitespace-nowrap flex-1 gap-2 justify-center items-center border "
+                      >
+                        <span class="material-symbols-outlined">share</span>
+                        Download QR
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* <div className="">
               <div className="border  px-10 py-6  my-6">
                 <div className="flex items-center gap-6 justify-between">
                   <h4 className="text-3xl">Dr. Elias Vance</h4>{" "}
@@ -110,50 +185,9 @@ const VisitorVisits = () => {
                   </button>
                 </div>
               </div>
+            </div> */}
             </div>
-
-            <div className="">
-              <div className="border  px-10 py-6  my-6">
-                <div className="flex items-center gap-6 justify-between">
-                  <h4 className="text-3xl">Dr. Elias Vance</h4>{" "}
-                  <span className=" bg-black px-4 py-1 text-sm text-white">
-                    Confirmed
-                  </span>
-                </div>
-                <p className="text-xl">Principal Investigator, Sector 7 lab</p>
-
-                <div className="flex justify-between my-4">
-                  <div className="flex items-center  w-fit gap-4 ">
-                    <span className=" material-symbols-outlined">
-                      date_range
-                    </span>
-                    <div>
-                      <span>Date</span>
-                      <p>Oct 24, 2026</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center  w-fit gap-4">
-                    <span class="material-symbols-outlined">schedule</span>
-                    <div>
-                      <span>Time</span>
-                      <p>09:00 AM IST</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className=" my-4 flex gap-4">
-                  <button className="flex justify-center gap-2 py-2 flex-1 items-center border ">
-                    <span class="material-symbols-outlined">qr_code_2</span>View
-                    QR Pass
-                  </button>
-                  <button className="flex flex-1 gap-2 justify-center items-center border ">
-                    <span class="material-symbols-outlined">share</span>
-                    Share
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
+          )}
         </div>
         <div className="mr-25">
           <img
