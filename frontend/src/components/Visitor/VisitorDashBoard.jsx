@@ -2,11 +2,35 @@ import React, { useContext, useEffect, useState } from "react";
 import VistorContext from "../../context/VistorContext";
 import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import api from "../../services/api";
 
 const VisitorDashBoard = () => {
   const { date, time, handleLogout, user, imgPreview } =
     useContext(VistorContext);
   const navigate = useNavigate();
+
+  const [total, setTotal] = useState({
+    totalPass: 0,
+    totalApproved: 0,
+    totalPending: 0,
+    totalRejected: 0,
+    totalCompleted: 0,
+  });
+
+  useEffect(() => {
+    const getTotal = async () => {
+      try {
+        const res = await api.get("/users/total");
+
+        setTotal(res.data.total);
+      } catch (err) {
+        toast.error("FAILED TO FETCH");
+      }
+    };
+
+    getTotal();
+  }, []);
 
   return (
     <div className=" max-w-[90rem]   mx-auto flex flex-col ">
@@ -51,8 +75,8 @@ const VisitorDashBoard = () => {
       </div>
 
       <div className=" my-10 ml-10">
-        <h2 className="text-4xl font-medium">
-          Hi, <span className="text-5xl font-bold">{user?.name}</span>
+        <h2 className="text-4xl font-bold">
+          Heyyy, <span className="text-5xl font-bold">{user?.name}</span>
         </h2>
         <p className="text-xl text-[#0000008d]">
           Welcome to visitor portal manage your access and coordinate your
@@ -60,43 +84,102 @@ const VisitorDashBoard = () => {
         </p>
       </div>
 
-      <div className=" grid grid-cols-3 bg-[#000000] gap-6 self-end  text-white p-10  ">
-        <div className="flex flex-1 px-6 place-items-center py-3 gap-2 rounded-lg flex-col  bg-white text-black">
-          <div className="flex items-center gap-4 font-bold text-3xl">
-            <span className=" material-symbols-outlined ">all_inbox</span>
+      <div className=" grid grid-cols-3 w-full bg-[#000000] gap-6 self-end  text-white p-12  ">
+        <div className="flex flex-1 px-6 gap-6 place-items-start py-3  rounded-lg flex-col  bg-white text-black">
+          <div className="flex items-center gap-4 font-bold  text-4xl">
+            <span
+              style={{ fontSize: "30px" }}
+              className=" material-symbols-outlined "
+            >
+              local_activity
+            </span>
             Total Pass
           </div>
 
-          <span className="self-center text-5xl font-extrabold">7</span>
+          <span className="self-center italic text-7xl font-extrabold">
+            {total.totalPass}
+          </span>
         </div>
-
-        <div className="flex place-items-center bg-white flex-1 px-6 py-3 gap-2 rounded-lg flex-col    text-black">
-          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
-            <span class="material-symbols-outlined">pending_actions</span>
+        <div className="flex place-items-start bg-white flex-1 px-6 py-3 gap-6 rounded-lg flex-col    text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-4xl">
+            <span
+              style={{ fontSize: "30px" }}
+              class="material-symbols-outlined"
+            >
+              pending_actions
+            </span>
             Pending Pass
           </div>
 
-          <span className="self-center text-5xl font-extrabold">2</span>
+          <span className="self-center italic text-7xl font-extrabold">
+            {total.totalPending}
+          </span>
         </div>
-
-        <div className="flex place-items-center flex-1 px-6 py-3 gap-2 rounded-lg flex-col  bg-white  text-black">
-          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-3xl">
-            <span class="material-symbols-outlined">assignment_turned_in</span>
+        <div className="flex place-items-start flex-1 px-6 py-3 gap-6 rounded-lg flex-col  bg-white  text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-4xl">
+            <span
+              style={{ fontSize: "30px" }}
+              class="material-symbols-outlined"
+            >
+              assignment_turned_in
+            </span>
             Approved Pass
           </div>
 
-          <span className="self-center text-5xl font-extrabold">4</span>
+          <span className="self-center italic text-7xl font-extrabold">
+            {total.totalApproved}
+          </span>
+        </div>
+
+        <div className="flex place-items-start flex-1 px-6 py-3  gap-6 rounded-lg flex-col bg-white text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-4xl">
+            <span
+              style={{ fontSize: "30px" }}
+              class="material-symbols-outlined"
+            >
+              task_alt
+            </span>
+            Completed Visit
+          </div>
+          <span className="self-center italic text-7xl font-extrabold">
+            {total.totalCompleted}
+          </span>
+        </div>
+
+        <div className="flex place-items-start flex-1 px-6 py-3 gap-6 rounded-lg flex-col bg-white text-black">
+          <div className="flex items-center gap-4 whitespace-nowrap font-bold text-4xl">
+            <span
+              style={{ fontSize: "30px" }}
+              class="material-symbols-outlined"
+            >
+              disabled_by_default
+            </span>
+            Rejected Pass
+          </div>
+
+          <span className="self-center italic text-7xl font-extrabold">
+            {total.totalRejected}
+          </span>
+        </div>
+
+        <div
+          onClick={() => navigate("/visitor/pass")}
+          className="flex justify-center cursor-pointer items-center gap-4 place-items-center bg-white text-black  flex-col"
+        >
+          <button className="cursor-pointer  font-bold text-3xl  flex self-center items-center gap-2">
+            Schedule a <span className="bg-black px-2 text-white">new</span>
+            visit
+          </button>
+          <span
+            style={{ fontSize: "40px", fontWeight: "700" }}
+            class="material-symbols-outlined"
+          >
+            arrow_right_alt
+          </span>
         </div>
       </div>
 
-      <button
-        onClick={() => navigate("/visitor/pass")}
-        className="cursor-pointer my-12  font-bold text-2xl  flex self-center items-center gap-2"
-      >
-        Schedule a <span className="bg-black px-2 text-white">new</span> visit
-        <span class="material-symbols-outlined">arrow_right_alt</span>
-      </button>
-      <hr className="border border-black w-40 mx-auto" />
+      {/* <hr className="border border-black w-40 mx-auto" /> */}
 
       <div className="flex justify-between absolute bottom-10  w-full pr-25">
         <div className="flex    gap-4 text-xl">
