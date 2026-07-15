@@ -3,7 +3,7 @@ import girlImg from "../assets/girlImg.png";
 
 const Contact = () => {
   return (
-    <div className=" max-w-[90rem]  flex items-center-safe h-[96vh] w-full mx-auto">
+    <div className=" max-w-[90rem]  flex items-center-safe h-[87vh]  w-full mx-auto">
       <div className="flex  gap-18 w-full ">
         <img className="h-120" src={girlImg} alt="" />
         <div className=" flex flex-col gap-5 justify-center">

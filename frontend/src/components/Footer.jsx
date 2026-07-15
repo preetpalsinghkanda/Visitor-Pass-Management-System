@@ -25,6 +25,8 @@ const Footer = () => {
             </span>
           </Link>
 
+          <Link></Link>
+
           <span>Privacy Policy</span>
           <span>Terms of Service</span>
           <span>FAQs</span>

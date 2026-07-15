@@ -80,8 +80,8 @@ function VistorProvider({ children }) {
       );
 
       console.log(photoRes.data);
-console.log(photoRes.data.user);
-console.log(photoRes.data.user.photo);
+      console.log(photoRes.data.user);
+      console.log(photoRes.data.user.photo);
 
       setUser(photoRes.data.user);
       setOriginalUser(photoRes.data.user);
@@ -103,18 +103,19 @@ console.log(photoRes.data.user.photo);
       path: "/",
       icon: "home",
     },
-    {
-      name: "",
-      icon: "",
-    },
+    // {
+    //   name: "",
+    //   icon: "",
+    // },
     {
       name: "About",
       path: "/about",
       icon: "info",
     },
     {
-      name: "",
-      icon: "",
+      name: "Contact Me",
+      path: "/contact",
+      icon: "person_text",
     },
   ];
 

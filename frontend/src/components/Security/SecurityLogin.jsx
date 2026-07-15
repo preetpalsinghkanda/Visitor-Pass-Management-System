@@ -51,7 +51,7 @@ const SecurityLogin = () => {
               <input
                 value={email}
                 onChange={(x) => setEmail(x.target.value)}
-                placeholder="VSEC0000"
+                placeholder="security@gmail.com"
                 type="text"
                 className=" text-lg w-full outline-0 border-0"
               />
