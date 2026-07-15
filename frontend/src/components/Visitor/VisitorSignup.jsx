@@ -21,34 +21,7 @@ const VisitorSignup = () => {
 
   const navigate = useNavigate();
 
-  // const handleRegister = async () => {
-  //   try {
-  //
 
-  //     await toast.promise(
-  //       (async () => {
-  //         const userCreate = await createUserWithEmailAndPassword(
-  //             auth,
-  //             email,
-  //             pass,
-  //           ),
-  //           firebaseId = userCreate.user.uid;
-
-  //         await axios.post("http://localhost:5000/users/register", {
-  //           firebaseId,
-  //           email,
-  //           name,
-  //           role: "visitor",
-  //         });
-  //       })(),
-  //       {
-  //
-  //       },
-  //     );
-  //   } catch (err) {
-  //     toast.error(err.message || "Something went wrong");
-  //   }
-  // };
 
   const handleRegister = async () => {
     try {

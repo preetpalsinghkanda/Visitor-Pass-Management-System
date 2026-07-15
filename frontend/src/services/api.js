@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL : "http://localhost:5000",
+    baseURL: "https://visitor-pass-management-system-gules.vercel.app",
     withCredentials: true
 })
 
