@@ -14,7 +14,7 @@ const employeeRoutes = require('./routes/employeeRoutes');
 const securityRoutes = require("./routes/securityRoutes");
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://visitor-pass-management-system-eb68.vercel.app"],
+    origin: ["http://localhost:5173", "https://visitor-pass-management-system-gules.vercel.app"],
     credentials: true,
 }))
 app.use(express.json())
@@ -37,7 +37,9 @@ app.use('/security', securityRoutes)
 
 
 app.get("/", (req, res) => {
-    res.json({ message: "backend is live" })
+    res.json({ 
+        success : true ,
+        message: "backend is live" })
 })
 
 
