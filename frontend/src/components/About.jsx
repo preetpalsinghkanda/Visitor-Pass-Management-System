@@ -26,7 +26,7 @@ const About = () => {
 
       <div>
         <div className="text-center mx-auto ">
-          <h2 className="uppercase font-bold bg-black text-white text-4xl ">
+          <h2 className="uppercase font-bold py-2 bg-black text-white text-4xl ">
             How it works
           </h2>
         </div>
@@ -143,7 +143,6 @@ const About = () => {
         </p>
       </div>
 
-      {/* why  */}
       <div>
         <div className="text-center mx-auto">
           <h2 className="text-4xl font-bold bg-black text-white py-2">
