@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
 
     try {
         const { email, password, role } = req.body;
-
+    
         // inputs check
         if (!email || !password) {
 
@@ -117,11 +117,12 @@ const loginUser = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: "None",
+            sameSite: "none",
+            path: "/",
             maxAge: 24 * 60 * 60 * 1000
         })
 
-
+        console.log("cookie sent")
 
 
         res.status(200).json({
@@ -131,7 +132,8 @@ const loginUser = async (req, res) => {
 
     } catch (err) {
 
-        res.status(500).json({
+        console.error(err)
+        return res.status(500).json({
             message: err.message,
             success: false,
         })
@@ -142,7 +144,12 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
 
     try {
-        res.clearCookie("token");
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            path: "/"
+        });
 
         return res.status(200).json({
             message: "LOGOUT SUCCESS",

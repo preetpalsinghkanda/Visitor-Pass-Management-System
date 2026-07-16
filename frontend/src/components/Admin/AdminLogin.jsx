@@ -31,6 +31,7 @@ const AdminLogin = () => {
       navigate("/admin/dashboard");
     } catch (err) {
       console.log(err.message);
+      
     }
   };
 

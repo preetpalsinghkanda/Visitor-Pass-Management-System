@@ -182,6 +182,9 @@ function VistorProvider({ children }) {
     try {
       await api.post("/users/logout");
 
+      setUser(null);
+      setRole(null);
+
       toast.success("LOGOUT SUCCESS");
 
       switch (role) {
