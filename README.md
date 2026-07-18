@@ -6,6 +6,36 @@
 ```https://visitor-pass-management-system-hvtr.vercel.app```
 
 
+# Demo Login Credentials 
+
+### Admin 
+id - admin@gmail.com , 
+pass - admin1234
+
+### Employee
+id - tom@gmail.com ,
+pass - 123456
+
+id - naki@gmail.com ,
+pass - 123456
+
+id - david@gmail.com ,
+pass - 123456
+
+### Security 
+ id - security@gmail.com ,
+ pass - 123456
+
+ id - security2@gmail.com ,
+ pass - 123456
+
+ ### Visitor 
+
+ id - virat@gmail.com ,
+ pass - 123456
+
+
+
 # How to use?
 
 ## Visitor Guide
